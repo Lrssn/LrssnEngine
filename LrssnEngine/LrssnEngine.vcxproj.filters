@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="LrssnEngine">
+      <UniqueIdentifier>{6D7A9881-D92F-1177-6224-0B4ECED8077B}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\LrssnEngine\application.h">
+      <Filter>LrssnEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LrssnEngine\core.h">
+      <Filter>LrssnEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LrssnEngine\entrypoint.h">
+      <Filter>LrssnEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LrssnEngine\log.h">
+      <Filter>LrssnEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lrssnengine.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\LrssnEngine\application.cpp">
+      <Filter>LrssnEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LrssnEngine\log.cpp">
+      <Filter>LrssnEngine</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

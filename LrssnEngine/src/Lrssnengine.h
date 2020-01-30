@@ -1,4 +1,7 @@
 #pragma once
 
-#include "LrssnEngine/entrypoint.h"
+
 #include "LrssnEngine/application.h"
+#include "LrssnEngine/log.h"
+
+#include "LrssnEngine/entrypoint.h"

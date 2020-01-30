@@ -12,7 +12,7 @@ project "LrssnEngine"
     kind "SharedLib"
     
     language "C++"
-    tergetDir ("bin/" .. outputdir .. "/%{prj.name}")
+    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
     files{
@@ -22,8 +22,8 @@ project "LrssnEngine"
         "%{prj.name}/src/**.cpp"
     }
 
-    include{
-        "%{prj.name}/vendor/spdlog/include"
+    includedirs{
+        "%{prj.name}/vendors/spdlog/include"
     }
 
     filter "system:windows"
@@ -37,8 +37,9 @@ project "LrssnEngine"
         }
 
         postbuildcommands{
-            ("{COPY}´%{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+            ("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
         }
+
     filter "configurations:Debug"
         defines "LE_DEBUG"
         symbols "On"
@@ -56,7 +57,7 @@ project "Sandbox"
     kind "ConsoleApp"
     
     language "C++"
-    tergetDir ("bin/" .. outputdir .. "/%{prj.name}")
+    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
     
     files{
@@ -66,8 +67,8 @@ project "Sandbox"
         "%{prj.name}/src/**.cpp"
     }
 
-    include{
-        "%{prj.name}/vendor/spdlog/include",
+    includedirs{
+        "LrssnEngine/vendors/spdlog/include",
         "LrssnEngine/src"
     }
 

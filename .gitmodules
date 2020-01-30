@@ -1,0 +1,3 @@
+[submodule "LrssnEngine/vendors/spdlog"]
+	path = LrssnEngine/vendors/spdlog
+	url = https://github.com/Lrssn/spdlog
