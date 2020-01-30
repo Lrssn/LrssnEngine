@@ -4,8 +4,23 @@
     <Filter Include="LrssnEngine">
       <UniqueIdentifier>{6D7A9881-D92F-1177-6224-0B4ECED8077B}</UniqueIdentifier>
     </Filter>
+    <Filter Include="LrssnEngine\Events">
+      <UniqueIdentifier>{B1898889-9D6D-49DF-06CE-4332F2D03361}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\LrssnEngine\Events\ApplicationEvent.h">
+      <Filter>LrssnEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LrssnEngine\Events\Event.h">
+      <Filter>LrssnEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LrssnEngine\Events\KeyEvent.h">
+      <Filter>LrssnEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LrssnEngine\Events\MouseEvent.h">
+      <Filter>LrssnEngine\Events</Filter>
+    </ClInclude>
     <ClInclude Include="src\LrssnEngine\application.h">
       <Filter>LrssnEngine</Filter>
     </ClInclude>
