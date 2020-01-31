@@ -1,3 +1,4 @@
+#include "lepch.h"
 #include "log.h"
 namespace LrssnEngine{
     std::shared_ptr<spdlog::logger> Log::s_CoreLogger;

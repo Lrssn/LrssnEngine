@@ -1,8 +1,5 @@
 #pragma once
-
-#include <memory>
-
-#include "core.h"
+#include "LrssnEngine/core.h"
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
 #include "spdlog/fmt/ostr.h"

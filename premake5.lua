@@ -7,6 +7,7 @@ workspace "LrssnEngine"
         "Dist"
     }
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+
 project "LrssnEngine"
     location "LrssnEngine"
     kind "SharedLib"
@@ -14,6 +15,9 @@ project "LrssnEngine"
     language "C++"
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+    pchheader "lepch.h"
+    pchsource "LrssnEngine/src/lepch.cpp"
 
     files{
         "%{prj.name}/src/**.h",

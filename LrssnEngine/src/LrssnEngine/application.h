@@ -1,7 +1,7 @@
 #pragma once
-#include "core.h"
-#include "Events/applicationEvent.h"
-#include "log.h"
+#include "LrssnEngine/core.h"
+#include "LrssnEngine/Events/applicationEvent.h"
+#include "LrssnEngine/log.h"
 namespace LrssnEngine{
     class LrssnEngine_API Application
     {

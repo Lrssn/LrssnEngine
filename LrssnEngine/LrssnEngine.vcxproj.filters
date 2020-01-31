@@ -34,6 +34,7 @@
       <Filter>LrssnEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\Lrssnengine.h" />
+    <ClInclude Include="src\lepch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\LrssnEngine\application.cpp">
@@ -42,5 +43,6 @@
     <ClCompile Include="src\LrssnEngine\log.cpp">
       <Filter>LrssnEngine</Filter>
     </ClCompile>
+    <ClCompile Include="src\lepch.cpp" />
   </ItemGroup>
 </Project>
