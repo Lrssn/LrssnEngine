@@ -14,10 +14,42 @@
 
 #include <iostream>
 #include <Lrssnengine.h>
+#include "imgui/imgui.h"
+
+class ExampleLayer : public LrssnEngine::Layer {
+public:
+	ExampleLayer()
+		: Layer("Example") 	{
+	}
+
+	void OnUpdate() override 	{
+		//LE_INFO("ExampleLayer::Update");
+		if (LrssnEngine::Input::IsKeyPressed(LE_KEY_TAB))
+			LE_TRACE("Tab key is pressed (poll)!");
+	}
+	virtual void OnImGuiRender() override 	{
+		ImGui::Begin("Test");
+		ImGui::Text("Hello World");
+		ImGui::End();
+	}
+
+	void OnEvent(LrssnEngine::Event& event) override 	{
+		//LE_TRACE("{0}", event);
+		if (event.GetEventType() == LrssnEngine::EventType::KeyPressed) 		{
+			LrssnEngine::KeyPressedEvent& e = (LrssnEngine::KeyPressedEvent&)event;
+			if (e.GetKeyCode() == LE_KEY_TAB)
+				LE_TRACE("Tab key is pressed (event)!");
+			LE_TRACE("{0}", e.GetKeyCode());
+		}
+	}
+
+};
 
 class Sandbox : public LrssnEngine::Application{
 public:
-	Sandbox(){};
+	Sandbox(){
+		PushLayer(new ExampleLayer());
+	};
 	~Sandbox(){};
 
 };

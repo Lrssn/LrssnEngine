@@ -1,3 +1,12 @@
 [submodule "LrssnEngine/vendors/spdlog"]
 	path = LrssnEngine/vendors/spdlog
 	url = https://github.com/Lrssn/spdlog
+[submodule "LrssnEngine/vendors/GLFW"]
+	path = LrssnEngine/vendors/GLFW
+	url = https://github.com/glfw/glfw.git
+[submodule "LrssnEngine/vendors/Imgui"]
+	path = LrssnEngine/vendors/Imgui
+	url = https://github.com/ocornut/imgui.git
+[submodule "LrssnEngine/vendors/Glm"]
+	path = LrssnEngine/vendors/Glm
+	url = https://github.com/g-truc/glm.git

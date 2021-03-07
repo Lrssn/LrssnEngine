@@ -15,7 +15,7 @@ namespace LrssnEngine {
 		None = 0,
 		WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
 		AppTick, AppUpdate, AppRender,
-		KeyPressed, KeyReleased,
+		KeyPressed, KeyReleased, KeyTyped,
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
 	};
 
@@ -37,8 +37,8 @@ namespace LrssnEngine {
 
 	class LrssnEngine_API Event
 	{
-		friend class EventDispatcher;
 	public:
+		bool Handled = false;
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;
 		virtual int GetCategoryFlags() const = 0;
@@ -49,7 +49,6 @@ namespace LrssnEngine {
 			return GetCategoryFlags() & category;
 		}
 	protected:
-		bool mHandled = false;
 	};
 
 	class EventDispatcher
@@ -67,7 +66,7 @@ namespace LrssnEngine {
 		{
 			if (mEvent.GetEventType() == T::GetStaticType())
 			{
-				mEvent.mHandled = func(*(T*)&mEvent);
+				mEvent.Handled = func(*(T*)&mEvent);
 				return true;
 			}
 			return false;
