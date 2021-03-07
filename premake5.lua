@@ -25,10 +25,11 @@ include "LrssnEngine/vendors/ImGui"
 
 project "LrssnEngine"
     location "LrssnEngine"
-    kind "SharedLib"
+    kind "StaticLib"
     
     language "C++"
-    staticruntime "off"
+    cppdialect "C++17"
+    staticruntime "on"
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
@@ -43,7 +44,10 @@ project "LrssnEngine"
         "%{prj.name}/vendors/Glm/glm/**.hpp",
 		"%{prj.name}/vendors/Glm/glm/**.inl",
     }
-
+    defines
+	{
+		"_CRT_SECURE_NO_WARNINGS"
+	}
     includedirs{
         "%{prj.name}/src",
         "%{IncludeDir.Spdlog}",
@@ -62,7 +66,6 @@ project "LrssnEngine"
 	}
 
     filter "system:windows"
-        cppdialect "C++17"
         systemversion "latest"
         
         defines{
@@ -77,24 +80,25 @@ project "LrssnEngine"
     filter "configurations:Debug"
         defines "LE_DEBUG"
         runtime "Debug"
-        symbols "On"
+        symbols "on"
     
     filter "configurations:Release"
         defines "LE_RELEASE"
         runtime "Release"
-        optimize "On"
+        optimize "on"
 
     filter "configurations:Dist"
         defines "LE_DIST"
         runtime "Release"
-        optimize "On"
+        optimize "on"
 
 project "Sandbox"
     location "Sandbox"
     kind "ConsoleApp"
     
     language "C++"
-    staticruntime "off"
+	cppdialect "C++17"
+    staticruntime "on"
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
     
@@ -117,7 +121,6 @@ project "Sandbox"
     }
 
     filter "system:windows"
-        cppdialect "C++17"
         systemversion "latest"
         
         defines{
@@ -128,14 +131,14 @@ project "Sandbox"
     filter "configurations:Debug"
         defines "LE_DEBUG"
         runtime "Debug"
-        symbols "On"
+        symbols "on"
     
     filter "configurations:Release"
         defines "LE_RELEASE"
         runtime "Release"
-        optimize "On"
+        optimize "on"
 
     filter "configurations:Dist"
         defines "LE_DIST"
         runtime "Release"
-        optimize "On"
+        optimize "on"

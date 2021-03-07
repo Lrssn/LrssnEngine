@@ -13,8 +13,9 @@
 */
 
 #include <iostream>
+#include <imgui/imgui.h>
 #include <Lrssnengine.h>
-#include "imgui/imgui.h"
+
 
 class ExampleLayer : public LrssnEngine::Layer {
 public:
@@ -27,6 +28,7 @@ public:
 		if (LrssnEngine::Input::IsKeyPressed(LE_KEY_TAB))
 			LE_TRACE("Tab key is pressed (poll)!");
 	}
+
 	virtual void OnImGuiRender() override 	{
 		ImGui::Begin("Test");
 		ImGui::Text("Hello World");

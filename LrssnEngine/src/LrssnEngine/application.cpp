@@ -53,12 +53,10 @@ namespace LrssnEngine
 
     void Application::PushLayer(Layer* layer) 	{
         mLayerStack.PushLayer(layer);
-        layer->OnAttach();
     }
 
     void Application::PushOverlay(Layer* layer) 	{
         mLayerStack.PushOverlay(layer);
-        layer->OnAttach();
     }
 
     //private functions

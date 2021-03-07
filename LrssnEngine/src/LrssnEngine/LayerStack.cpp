@@ -14,10 +14,12 @@ namespace LrssnEngine {
 	void LayerStack::PushLayer(Layer* layer) 	{
 		mLayers.emplace(mLayers.begin() + mLayerInsertIndex, layer);
 		mLayerInsertIndex++;
+		layer->OnAttach();
 	}
 
 	void LayerStack::PushOverlay(Layer* overlay) 	{
 		mLayers.emplace_back(overlay);
+		overlay->OnAttach();
 	}
 
 	void LayerStack::PopLayer(Layer* layer) 	{
@@ -25,13 +27,16 @@ namespace LrssnEngine {
 		if (it != mLayers.end()) 		{
 			mLayers.erase(it);
 			mLayerInsertIndex--;
+			layer->OnDetach();
 		}
 	}
 
 	void LayerStack::PopOverlay(Layer* overlay) 	{
 		auto it = std::find(mLayers.begin(), mLayers.end(), overlay);
-		if (it != mLayers.end())
+		if (it != mLayers.end()) {
 			mLayers.erase(it);
+			overlay->OnDetach();
+		}
 	}
 
 }
