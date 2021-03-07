@@ -1,54 +1,222 @@
-/*
-#if defined(_WIN32) || defined(_WIN64) || defined(__WINDOWS__)
-	#error Windows_OS
-#elif defined(__linux__)
-	#error Linux_OS
-#elif defined(__APPLE__) && defined(__MACH__)
-	#error Mac_OS
-#elif defined(unix) || defined(__unix__) || defined(__unix)
-	#error Unix_OS
-#else
-	#error Unknown_OS
-#endif
-*/
-
-#include <iostream>
-#include <imgui/imgui.h>
 #include <Lrssnengine.h>
 
+#include <imgui/imgui.h>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+#include "Platform/OpenGL/OpenGLShader.h"
 
 class ExampleLayer : public LrssnEngine::Layer {
 public:
 	ExampleLayer()
-		: Layer("Example") 	{
+		: Layer("Example"), mCamera(-1.6f, 1.6f, -0.9f, 0.9f), mCameraPosition(0.0f) {
+		mVertexArray.reset(LrssnEngine::VertexArray::Create());
+
+		float vertices[3 * 7] = {
+			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
+			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
+			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
+		};
+
+		LrssnEngine::Ref<LrssnEngine::VertexBuffer> vertexBuffer;
+		vertexBuffer.reset(LrssnEngine::VertexBuffer::Create(vertices, sizeof(vertices)));
+		LrssnEngine::BufferLayout layout = {
+			{ LrssnEngine::ShaderDataType::Float3, "a_Position" },
+			{ LrssnEngine::ShaderDataType::Float4, "a_Color" }
+		};
+		vertexBuffer->SetLayout(layout);
+		mVertexArray->AddVertexBuffer(vertexBuffer);
+
+		uint32_t indices[3] = { 0, 1, 2 };
+		LrssnEngine::Ref<LrssnEngine::IndexBuffer> indexBuffer;
+		indexBuffer.reset(LrssnEngine::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		mVertexArray->SetIndexBuffer(indexBuffer);
+
+		mSquareVA.reset(LrssnEngine::VertexArray::Create());
+
+		float squareVertices[5 * 4] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
+		};
+
+		LrssnEngine::Ref<LrssnEngine::VertexBuffer> squareVB;
+		squareVB.reset(LrssnEngine::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+		squareVB->SetLayout({
+			{ LrssnEngine::ShaderDataType::Float3, "a_Position" },
+			{ LrssnEngine::ShaderDataType::Float2, "a_TexCoord" }
+			});
+		mSquareVA->AddVertexBuffer(squareVB);
+
+		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
+		LrssnEngine::Ref<LrssnEngine::IndexBuffer> squareIB;
+		squareIB.reset(LrssnEngine::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+		mSquareVA->SetIndexBuffer(squareIB);
+
+		std::string vertexSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec4 a_Color;
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
+			out vec3 v_Position;
+			out vec4 v_Color;
+			void main()
+			{
+				v_Position = a_Position;
+				v_Color = a_Color;
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);	
+			}
+		)";
+
+		std::string fragmentSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
+			in vec3 v_Position;
+			in vec4 v_Color;
+			void main()
+			{
+				color = vec4(v_Position * 0.5 + 0.5, 1.0);
+				color = v_Color;
+			}
+		)";
+
+		mShader.reset(LrssnEngine::Shader::Create(vertexSrc, fragmentSrc));
+
+		std::string flatColorShaderVertexSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_Position;
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
+			out vec3 v_Position;
+			void main()
+			{
+				v_Position = a_Position;
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);	
+			}
+		)";
+
+		std::string flatColorShaderFragmentSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
+			in vec3 v_Position;
+			uniform vec3 u_Color;
+			void main()
+			{
+				color = vec4(u_Color, 1.0);
+			}
+		)";
+
+		mFlatColorShader.reset(LrssnEngine::Shader::Create(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
+		
+		std::string textureShaderVertexSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec2 a_TexCoord;
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
+			out vec2 v_TexCoord;
+			void main()
+			{
+				v_TexCoord = a_TexCoord;
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);	
+			}
+		)";
+
+		std::string textureShaderFragmentSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
+			in vec2 v_TexCoord;
+			
+			uniform sampler2D u_Texture;
+			void main()
+			{
+				color = texture(u_Texture, v_TexCoord);
+			}
+		)";
+
+		mTextureShader.reset(LrssnEngine::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
+
+		mTexture = LrssnEngine::Texture2D::Create("assets/textures/a.png");
+
+		std::dynamic_pointer_cast<LrssnEngine::OpenGLShader>(mTextureShader)->Bind();
+		std::dynamic_pointer_cast<LrssnEngine::OpenGLShader>(mTextureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
-	void OnUpdate() override 	{
-		//LE_INFO("ExampleLayer::Update");
-		if (LrssnEngine::Input::IsKeyPressed(LE_KEY_TAB))
-			LE_TRACE("Tab key is pressed (poll)!");
+	void OnUpdate(LrssnEngine::Timestep ts) override 	{
+		if (LrssnEngine::Input::IsKeyPressed(LE_KEY_LEFT))
+			mCameraPosition.x -= mCameraMoveSpeed * ts;
+		else if (LrssnEngine::Input::IsKeyPressed(LE_KEY_RIGHT))
+			mCameraPosition.x += mCameraMoveSpeed * ts;
+
+		if (LrssnEngine::Input::IsKeyPressed(LE_KEY_UP))
+			mCameraPosition.y += mCameraMoveSpeed * ts;
+		else if (LrssnEngine::Input::IsKeyPressed(LE_KEY_DOWN))
+			mCameraPosition.y -= mCameraMoveSpeed * ts;
+
+		if (LrssnEngine::Input::IsKeyPressed(LE_KEY_A))
+			mCameraRotation += mCameraRotationSpeed * ts;
+		if (LrssnEngine::Input::IsKeyPressed(LE_KEY_D))
+			mCameraRotation -= mCameraRotationSpeed * ts;
+
+		LrssnEngine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+		LrssnEngine::RenderCommand::Clear();
+
+		mCamera.SetPosition(mCameraPosition);
+		mCamera.SetRotation(mCameraRotation);
+
+		LrssnEngine::Renderer::BeginScene(mCamera);
+		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+
+		std::dynamic_pointer_cast<LrssnEngine::OpenGLShader>(mFlatColorShader)->Bind();
+		std::dynamic_pointer_cast<LrssnEngine::OpenGLShader>(mFlatColorShader)->UploadUniformFloat3("u_Color", mSquareColor);
+
+
+		for (int y = 0; y < 20; y++) 		{
+			for (int x = 0; x < 20; x++) 			{
+				glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
+				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+				LrssnEngine::Renderer::Submit(mFlatColorShader, mSquareVA, transform);
+			}
+		}
+
+		mTexture->Bind();
+		LrssnEngine::Renderer::Submit(mTextureShader, mSquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+		LrssnEngine::Renderer::EndScene();
 	}
 
 	virtual void OnImGuiRender() override 	{
-
-		static bool show = true;
-		ImGui::ShowDemoWindow(&show);
-
-		ImGui::Begin("Test");
-		ImGui::Text("Hello World");
+		ImGui::Begin("Settings");
+		ImGui::ColorEdit3("Square Color", glm::value_ptr(mSquareColor));
 		ImGui::End();
 	}
 
 	void OnEvent(LrssnEngine::Event& event) override 	{
-		//LE_TRACE("{0}", event);
-		if (event.GetEventType() == LrssnEngine::EventType::KeyPressed) 		{
-			LrssnEngine::KeyPressedEvent& e = (LrssnEngine::KeyPressedEvent&)event;
-			if (e.GetKeyCode() == LE_KEY_TAB)
-				LE_TRACE("Tab key is pressed (event)!");
-			LE_TRACE("{0}", e.GetKeyCode());
-		}
 	}
+	private:
+		LrssnEngine::Ref<LrssnEngine::Shader> mShader;
+		LrssnEngine::Ref<LrssnEngine::VertexArray> mVertexArray;
 
+		LrssnEngine::Ref<LrssnEngine::Shader> mFlatColorShader, mTextureShader;
+		LrssnEngine::Ref<LrssnEngine::VertexArray> mSquareVA;
+
+		LrssnEngine::Ref<LrssnEngine::Texture2D> mTexture;
+
+		LrssnEngine::OrthographicCamera mCamera;
+		glm::vec3 mCameraPosition;
+		float mCameraMoveSpeed = 5.0f;
+
+		float mCameraRotation = 0.0f;
+		float mCameraRotationSpeed = 180.0f;
+		glm::vec3 mSquareColor = { 0.2f, 0.3f, 0.8f };
 };
 
 class Sandbox : public LrssnEngine::Application{
@@ -63,40 +231,3 @@ public:
 LrssnEngine::Application* LrssnEngine::createApplication(){
 	return new Sandbox();
 }
-/*
-int main() {
-
-	Sandbox s;
-	s.run();
-	
-	
-	return 0;
-	const char* name = "Lrssn Engine";
-	LRSSNENGINE::Engine e = LRSSNENGINE::Engine(name);
-
-	glm::vec3 newColor = glm::vec3(0.3f, 0.5f, 0.8f);
-	float b = 0.0f;
-	bool brise = true;
-	//e.createObject("res/models/nanosuit.obj");
-	e.createObject(trianglePrimitive);
-	
-	while (!e.shouldEnd()) {
-		newColor = glm::vec3(1.0f, 0.6f, b);
-		e.getObjects()->at(0).getModels()->at(0).getMeshes()->at(0).getMaterial()->setColor(newColor);
-		e.update();
-		
-		//change color
-		if(b<0.0f){
-			brise = true;
-		}else if(b > 1.0f){
-			brise = false;
-		}
-		(brise) ? b += 0.01f : b -= 0.01f;
-
-	}
-
-
-	//system("pause");
-	return 0;
-}
-*/

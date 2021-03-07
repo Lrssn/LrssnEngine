@@ -17,6 +17,7 @@ IncludeDir["GLFW"] = "LrssnEngine/vendors/GLFW/include"
 IncludeDir["Glad"] = "LrssnEngine/vendors/Glad/include"
 IncludeDir["ImGui"] = "LrssnEngine/vendors/ImGui"
 IncludeDir["Glm"] = "LrssnEngine/vendors/Glm"
+IncludeDir["stb_image"] = "LrssnEngine/vendors/stb_image"
 
 group "Dependencies"
     include "LrssnEngine/vendors/GLFW"
@@ -43,6 +44,8 @@ project "LrssnEngine"
         "%{prj.name}/src/**.hpp",
         "%{prj.name}/src/**.c",
         "%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendors/stb_image/**.h",
+		"%{prj.name}/vendors/stb_image/**.cpp",
         "%{prj.name}/vendors/Glm/glm/**.hpp",
 		"%{prj.name}/vendors/Glm/glm/**.inl",
     }
@@ -56,7 +59,8 @@ project "LrssnEngine"
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
         "%{IncludeDir.ImGui}",
-        "%{IncludeDir.Glm}"
+        "%{IncludeDir.Glm}",
+        "%{IncludeDir.stb_image}"
     }
 
     links 
