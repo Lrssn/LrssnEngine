@@ -13,8 +13,14 @@
     <Filter Include="src\LrssnEngine\ImGui">
       <UniqueIdentifier>{2E962E23-9A02-EA1D-63F6-817BCF210C86}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\LrssnEngine\Renderer">
+      <UniqueIdentifier>{2AF60B0F-161B-5B8F-3F66-401F2BEA59AD}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Platform">
       <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Platform\OpenGL">
+      <UniqueIdentifier>{35A49437-A105-7245-2A73-B8F796D3A804}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Platform\Windows">
       <UniqueIdentifier>{5B054582-4794-CE4B-F0B2-E246DC20DFF1}</UniqueIdentifier>
@@ -72,6 +78,18 @@
     <ClInclude Include="src\LrssnEngine\MouseButtonCodes.h">
       <Filter>src\LrssnEngine</Filter>
     </ClInclude>
+    <ClInclude Include="src\LrssnEngine\Renderer\Buffer.h">
+      <Filter>src\LrssnEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LrssnEngine\Renderer\GraphicsContext.h">
+      <Filter>src\LrssnEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LrssnEngine\Renderer\Renderer.h">
+      <Filter>src\LrssnEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LrssnEngine\Renderer\Shader.h">
+      <Filter>src\LrssnEngine\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\LrssnEngine\Window.h">
       <Filter>src\LrssnEngine</Filter>
     </ClInclude>
@@ -89,6 +107,12 @@
     </ClInclude>
     <ClInclude Include="src\Lrssnengine.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
+      <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsInput.h">
       <Filter>src\Platform\Windows</Filter>
@@ -1338,6 +1362,11 @@
     <ClInclude Include="vendors\Glm\glm\vector_relational.hpp">
       <Filter>vendors\Glm\glm</Filter>
     </ClInclude>
+    <ClInclude Include="src\LrssnEngine\Renderer\VertexArray.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
+    <ClInclude Include="src\LrssnEngine\Renderer\RenderCommand.h" />
+    <ClInclude Include="src\LrssnEngine\Renderer\RendererAPI.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\LrssnEngine\ImGui\ImGuiBuild.cpp">
@@ -1352,11 +1381,26 @@
     <ClCompile Include="src\LrssnEngine\LayerStack.cpp">
       <Filter>src\LrssnEngine</Filter>
     </ClCompile>
+    <ClCompile Include="src\LrssnEngine\Renderer\Buffer.cpp">
+      <Filter>src\LrssnEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LrssnEngine\Renderer\Renderer.cpp">
+      <Filter>src\LrssnEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LrssnEngine\Renderer\Shader.cpp">
+      <Filter>src\LrssnEngine\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\LrssnEngine\application.cpp">
       <Filter>src\LrssnEngine</Filter>
     </ClCompile>
     <ClCompile Include="src\LrssnEngine\log.cpp">
       <Filter>src\LrssnEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
       <Filter>src\Platform\Windows</Filter>
@@ -1367,5 +1411,10 @@
     <ClCompile Include="src\lepch.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\LrssnEngine\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
+    <ClCompile Include="src\LrssnEngine\Renderer\RenderCommand.cpp" />
+    <ClCompile Include="src\LrssnEngine\Renderer\RendererAPI.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
   </ItemGroup>
 </Project>

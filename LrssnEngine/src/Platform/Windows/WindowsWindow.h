@@ -1,7 +1,7 @@
 #pragma once
 
 #include "LrssnEngine/Window.h"
-
+#include "LrssnEngine/Renderer/GraphicsContext.h"
 #include <GLFW/glfw3.h>
 
 namespace LrssnEngine {
@@ -27,7 +27,7 @@ namespace LrssnEngine {
 		virtual void Shutdown();
 	private:
 		GLFWwindow* mWindow;
-
+		GraphicsContext* mContext;
 		struct WindowData
 		{
 			std::string Title;
@@ -36,7 +36,7 @@ namespace LrssnEngine {
 
 			EventCallbackFn EventCallback;
 		};
-
+		
 		WindowData mData;
 	};
 

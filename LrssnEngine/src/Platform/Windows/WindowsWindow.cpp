@@ -5,7 +5,7 @@
 #include "LrssnEngine/Events/MouseEvent.h"
 #include "LrssnEngine/Events/KeyEvent.h"
 
-#include <glad/glad.h>
+#include "Platform/OpenGL/OpenGLContext.h"
 
 namespace LrssnEngine {
 
@@ -44,9 +44,10 @@ namespace LrssnEngine {
 		}
 
 		mWindow = glfwCreateWindow((int)props.Width, (int)props.Height, mData.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(mWindow);
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		LE_CORE_ASSERT(status, "Failed to initialize Glad!");
+		
+		mContext = new OpenGLContext(mWindow);
+		mContext->Init();
+		
 		glfwSetWindowUserPointer(mWindow, &mData);
 		SetVSync(true);
 
@@ -137,7 +138,7 @@ namespace LrssnEngine {
 
 	void WindowsWindow::OnUpdate() 	{
 		glfwPollEvents();
-		glfwSwapBuffers(mWindow);
+		mContext->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled) 	{

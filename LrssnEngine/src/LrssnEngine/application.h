@@ -7,6 +7,10 @@
 #include "LrssnEngine/Events/ApplicationEvent.h"
 #include "LrssnEngine/ImGui/ImGuiLayer.h"
 
+#include "LrssnEngine/Renderer/Shader.h"
+#include "LrssnEngine/Renderer/Buffer.h"
+#include "LrssnEngine/Renderer/VertexArray.h"
+
 namespace LrssnEngine{
     class LrssnEngine_API Application
     {
@@ -26,6 +30,13 @@ namespace LrssnEngine{
         ImGuiLayer* mImGuiLayer;
         bool mRunning = true;
         LayerStack mLayerStack;
+        
+        //temp?
+        std::shared_ptr<Shader> mShader;
+        std::shared_ptr<VertexArray> mVertexArray;
+
+        std::shared_ptr<Shader> mBlueShader;
+        std::shared_ptr<VertexArray> mSquareVA;
 
         static Application* s_mInstance;
     };

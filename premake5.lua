@@ -7,6 +7,7 @@ workspace "LrssnEngine"
         "Dist"
     }
     startproject "Sandbox"
+
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 -- Include directories relative to root folder (solution directory)
@@ -17,11 +18,12 @@ IncludeDir["Glad"] = "LrssnEngine/vendors/Glad/include"
 IncludeDir["ImGui"] = "LrssnEngine/vendors/ImGui"
 IncludeDir["Glm"] = "LrssnEngine/vendors/Glm"
 
+group "Dependencies"
+    include "LrssnEngine/vendors/GLFW"
+    include "LrssnEngine/vendors/Glad"
+    include "LrssnEngine/vendors/ImGui"
 
-include "LrssnEngine/vendors/GLFW"
-include "LrssnEngine/vendors/Glad"
-include "LrssnEngine/vendors/ImGui"
-
+group ""
 
 project "LrssnEngine"
     location "LrssnEngine"
@@ -74,9 +76,6 @@ project "LrssnEngine"
             "GLFW_INCLUDE_NONE"
         }
 
-        postbuildcommands{
-			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
-		}
     filter "configurations:Debug"
         defines "LE_DEBUG"
         runtime "Debug"
