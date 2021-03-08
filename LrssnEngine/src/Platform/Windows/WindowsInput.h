@@ -1,6 +1,6 @@
 #pragma once
 
-#include "LrssnEngine/Input.h"
+#include "LrssnEngine/Core/Input.h"
 
 namespace LrssnEngine {
 

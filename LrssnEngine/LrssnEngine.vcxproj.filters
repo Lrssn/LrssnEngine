@@ -72,19 +72,19 @@
     <ClInclude Include="src\LrssnEngine\ImGui\ImGuiLayer.h">
       <Filter>src\LrssnEngine\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="src\LrssnEngine\Input.h">
+    <ClInclude Include="src\LrssnEngine\Core\Input.h">
       <Filter>src\LrssnEngine</Filter>
     </ClInclude>
-    <ClInclude Include="src\LrssnEngine\KeyCodes.h">
+    <ClInclude Include="src\LrssnEngine\Core\KeyCodes.h">
       <Filter>src\LrssnEngine</Filter>
     </ClInclude>
-    <ClInclude Include="src\LrssnEngine\Layer.h">
+    <ClInclude Include="src\LrssnEngine\Core\Layer.h">
       <Filter>src\LrssnEngine</Filter>
     </ClInclude>
-    <ClInclude Include="src\LrssnEngine\LayerStack.h">
+    <ClInclude Include="src\LrssnEngine\Core\LayerStack.h">
       <Filter>src\LrssnEngine</Filter>
     </ClInclude>
-    <ClInclude Include="src\LrssnEngine\MouseButtonCodes.h">
+    <ClInclude Include="src\LrssnEngine\Core\MouseButtonCodes.h">
       <Filter>src\LrssnEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\LrssnEngine\Renderer\Buffer.h">
@@ -114,19 +114,19 @@
     <ClInclude Include="src\LrssnEngine\Renderer\VertexArray.h">
       <Filter>src\LrssnEngine\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\LrssnEngine\Window.h">
+    <ClInclude Include="src\LrssnEngine\Core\Window.h">
       <Filter>src\LrssnEngine</Filter>
     </ClInclude>
-    <ClInclude Include="src\LrssnEngine\application.h">
+    <ClInclude Include="src\LrssnEngine\Core\application.h">
       <Filter>src\LrssnEngine</Filter>
     </ClInclude>
-    <ClInclude Include="src\LrssnEngine\core.h">
+    <ClInclude Include="src\LrssnEngine\Core\core.h">
       <Filter>src\LrssnEngine</Filter>
     </ClInclude>
-    <ClInclude Include="src\LrssnEngine\entrypoint.h">
+    <ClInclude Include="src\LrssnEngine\Core\entrypoint.h">
       <Filter>src\LrssnEngine</Filter>
     </ClInclude>
-    <ClInclude Include="src\LrssnEngine\log.h">
+    <ClInclude Include="src\LrssnEngine\Core\log.h">
       <Filter>src\LrssnEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\Lrssnengine.h">
@@ -1401,6 +1401,7 @@
     <ClInclude Include="vendors\stb_image\stb_image.h">
       <Filter>vendors\stb_image</Filter>
     </ClInclude>
+    <ClInclude Include="src\LrssnEngine\Core\OrthographicCameraController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\LrssnEngine\ImGui\ImGuiBuild.cpp">
@@ -1409,10 +1410,10 @@
     <ClCompile Include="src\LrssnEngine\ImGui\ImGuiLayer.cpp">
       <Filter>src\LrssnEngine\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="src\LrssnEngine\Layer.cpp">
+    <ClCompile Include="src\LrssnEngine\Core\Layer.cpp">
       <Filter>src\LrssnEngine</Filter>
     </ClCompile>
-    <ClCompile Include="src\LrssnEngine\LayerStack.cpp">
+    <ClCompile Include="src\LrssnEngine\Core\LayerStack.cpp">
       <Filter>src\LrssnEngine</Filter>
     </ClCompile>
     <ClCompile Include="src\LrssnEngine\Renderer\Buffer.cpp">
@@ -1439,10 +1440,10 @@
     <ClCompile Include="src\LrssnEngine\Renderer\VertexArray.cpp">
       <Filter>src\LrssnEngine\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\LrssnEngine\application.cpp">
+    <ClCompile Include="src\LrssnEngine\Core\application.cpp">
       <Filter>src\LrssnEngine</Filter>
     </ClCompile>
-    <ClCompile Include="src\LrssnEngine\log.cpp">
+    <ClCompile Include="src\LrssnEngine\Core\log.cpp">
       <Filter>src\LrssnEngine</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
@@ -1475,5 +1476,6 @@
     <ClCompile Include="vendors\stb_image\stb_image.cpp">
       <Filter>vendors\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="src\LrssnEngine\Core\OrthographicCameraController.cpp" />
   </ItemGroup>
 </Project>

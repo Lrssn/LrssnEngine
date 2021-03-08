@@ -1,6 +1,6 @@
 #pragma once
 #include "lepch.h"
-#include "LrssnEngine/core.h"
+#include "LrssnEngine/Core/core.h"
 
 
 namespace LrssnEngine {

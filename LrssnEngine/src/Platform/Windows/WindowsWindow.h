@@ -1,6 +1,6 @@
 #pragma once
 
-#include "LrssnEngine/Window.h"
+#include "LrssnEngine/Core/Window.h"
 #include "LrssnEngine/Renderer/GraphicsContext.h"
 #include <GLFW/glfw3.h>
 

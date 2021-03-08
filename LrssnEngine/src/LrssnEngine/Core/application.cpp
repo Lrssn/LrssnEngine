@@ -31,8 +31,10 @@ namespace LrssnEngine
             Timestep timestep = time - mLastFrameTime;
             mLastFrameTime = time;
 
-            for (Layer* layer : mLayerStack)
-                layer->OnUpdate(timestep);
+            if (!mMinimized) 			{
+                for (Layer* layer : mLayerStack)
+                    layer->OnUpdate(timestep);
+            }
             
             mImGuiLayer->Begin();
             for (Layer* layer : mLayerStack)
@@ -46,6 +48,7 @@ namespace LrssnEngine
     void Application::OnEvent(Event& e) 	{
         EventDispatcher dispatcher(e);
         dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose));
+        dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(Application::OnWindowResize));
 
         for (auto it = mLayerStack.end(); it != mLayerStack.begin(); ) 		{
             (*--it)->OnEvent(e);
@@ -66,5 +69,16 @@ namespace LrssnEngine
     bool Application::OnWindowClose(WindowCloseEvent& e) 	{
         mRunning = false;
         return true;
+    }
+    bool Application::OnWindowResize(WindowResizeEvent& e) 	{
+        if (e.GetWidth() == 0 || e.GetHeight() == 0) 		{
+            mMinimized = true;
+            return false;
+        }
+
+        mMinimized = false;
+        Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+
+        return false;
     }
 } // namespace LrssnEngine

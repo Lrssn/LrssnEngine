@@ -144,17 +144,18 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\LrssnEngine\Core\OrthographicCameraController.h" />
     <ClInclude Include="src\LrssnEngine\Core\Timestep.h" />
     <ClInclude Include="src\LrssnEngine\Events\ApplicationEvent.h" />
     <ClInclude Include="src\LrssnEngine\Events\Event.h" />
     <ClInclude Include="src\LrssnEngine\Events\KeyEvent.h" />
     <ClInclude Include="src\LrssnEngine\Events\MouseEvent.h" />
     <ClInclude Include="src\LrssnEngine\ImGui\ImGuiLayer.h" />
-    <ClInclude Include="src\LrssnEngine\Input.h" />
-    <ClInclude Include="src\LrssnEngine\KeyCodes.h" />
-    <ClInclude Include="src\LrssnEngine\Layer.h" />
-    <ClInclude Include="src\LrssnEngine\LayerStack.h" />
-    <ClInclude Include="src\LrssnEngine\MouseButtonCodes.h" />
+    <ClInclude Include="src\LrssnEngine\Core\Input.h" />
+    <ClInclude Include="src\LrssnEngine\Core\KeyCodes.h" />
+    <ClInclude Include="src\LrssnEngine\Core\Layer.h" />
+    <ClInclude Include="src\LrssnEngine\Core\LayerStack.h" />
+    <ClInclude Include="src\LrssnEngine\Core\MouseButtonCodes.h" />
     <ClInclude Include="src\LrssnEngine\Renderer\Buffer.h" />
     <ClInclude Include="src\LrssnEngine\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\LrssnEngine\Renderer\OrthographicCamera.h" />
@@ -164,11 +165,11 @@
     <ClInclude Include="src\LrssnEngine\Renderer\Shader.h" />
     <ClInclude Include="src\LrssnEngine\Renderer\Texture.h" />
     <ClInclude Include="src\LrssnEngine\Renderer\VertexArray.h" />
-    <ClInclude Include="src\LrssnEngine\Window.h" />
-    <ClInclude Include="src\LrssnEngine\application.h" />
-    <ClInclude Include="src\LrssnEngine\core.h" />
-    <ClInclude Include="src\LrssnEngine\entrypoint.h" />
-    <ClInclude Include="src\LrssnEngine\log.h" />
+    <ClInclude Include="src\LrssnEngine\Core\Window.h" />
+    <ClInclude Include="src\LrssnEngine\Core\application.h" />
+    <ClInclude Include="src\LrssnEngine\Core\core.h" />
+    <ClInclude Include="src\LrssnEngine\Core\entrypoint.h" />
+    <ClInclude Include="src\LrssnEngine\Core\log.h" />
     <ClInclude Include="src\Lrssnengine.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
@@ -595,10 +596,11 @@
     <ClInclude Include="vendors\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\LrssnEngine\Core\OrthographicCameraController.cpp" />
     <ClCompile Include="src\LrssnEngine\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\LrssnEngine\ImGui\ImGuiLayer.cpp" />
-    <ClCompile Include="src\LrssnEngine\Layer.cpp" />
-    <ClCompile Include="src\LrssnEngine\LayerStack.cpp" />
+    <ClCompile Include="src\LrssnEngine\Core\Layer.cpp" />
+    <ClCompile Include="src\LrssnEngine\Core\LayerStack.cpp" />
     <ClCompile Include="src\LrssnEngine\Renderer\Buffer.cpp" />
     <ClCompile Include="src\LrssnEngine\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="src\LrssnEngine\Renderer\RenderCommand.cpp" />
@@ -607,8 +609,8 @@
     <ClCompile Include="src\LrssnEngine\Renderer\Shader.cpp" />
     <ClCompile Include="src\LrssnEngine\Renderer\Texture.cpp" />
     <ClCompile Include="src\LrssnEngine\Renderer\VertexArray.cpp" />
-    <ClCompile Include="src\LrssnEngine\application.cpp" />
-    <ClCompile Include="src\LrssnEngine\log.cpp" />
+    <ClCompile Include="src\LrssnEngine\Core\application.cpp" />
+    <ClCompile Include="src\LrssnEngine\Core\log.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />

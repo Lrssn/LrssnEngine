@@ -1,6 +1,6 @@
 #pragma once
 
-#include "LrssnEngine/Core.h"
+#include "LrssnEngine/Core/Core.h"
 #include "LrssnEngine/Core/Timestep.h"
 #include "LrssnEngine/Events/Event.h"
 

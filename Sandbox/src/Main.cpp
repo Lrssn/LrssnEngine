@@ -9,7 +9,7 @@
 class ExampleLayer : public LrssnEngine::Layer {
 public:
 	ExampleLayer()
-		: Layer("Example"), mCamera(-1.6f, 1.6f, -0.9f, 0.9f), mCameraPosition(0.0f) {
+		: Layer("Example"), mCameraController(1280.0f / 720.0f){
 		mVertexArray.reset(LrssnEngine::VertexArray::Create());
 
 		float vertices[3 * 7] = {
@@ -125,28 +125,13 @@ public:
 	}
 
 	void OnUpdate(LrssnEngine::Timestep ts) override 	{
-		if (LrssnEngine::Input::IsKeyPressed(LE_KEY_LEFT))
-			mCameraPosition.x -= mCameraMoveSpeed * ts;
-		else if (LrssnEngine::Input::IsKeyPressed(LE_KEY_RIGHT))
-			mCameraPosition.x += mCameraMoveSpeed * ts;
-
-		if (LrssnEngine::Input::IsKeyPressed(LE_KEY_UP))
-			mCameraPosition.y += mCameraMoveSpeed * ts;
-		else if (LrssnEngine::Input::IsKeyPressed(LE_KEY_DOWN))
-			mCameraPosition.y -= mCameraMoveSpeed * ts;
-
-		if (LrssnEngine::Input::IsKeyPressed(LE_KEY_A))
-			mCameraRotation += mCameraRotationSpeed * ts;
-		if (LrssnEngine::Input::IsKeyPressed(LE_KEY_D))
-			mCameraRotation -= mCameraRotationSpeed * ts;
-
+		// update
+		mCameraController.OnUpdate(ts);
+		// Render
 		LrssnEngine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		LrssnEngine::RenderCommand::Clear();
 
-		mCamera.SetPosition(mCameraPosition);
-		mCamera.SetRotation(mCameraRotation);
-
-		LrssnEngine::Renderer::BeginScene(mCamera);
+		LrssnEngine::Renderer::BeginScene(mCameraController.GetCamera());
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
 		std::dynamic_pointer_cast<LrssnEngine::OpenGLShader>(mFlatColorShader)->Bind();
@@ -175,7 +160,8 @@ public:
 		ImGui::End();
 	}
 
-	void OnEvent(LrssnEngine::Event& event) override 	{
+	void OnEvent(LrssnEngine::Event& e) override 	{
+		mCameraController.OnEvent(e);
 	}
 	private:
 		LrssnEngine::ShaderLibrary mShaderLibrary;
@@ -188,12 +174,7 @@ public:
 		LrssnEngine::Ref<LrssnEngine::Texture2D> mTexture, mTexture2;
 		glm::vec3 mSquareColor = { 0.2f, 0.3f, 0.8f };
 
-		LrssnEngine::OrthographicCamera mCamera;
-		glm::vec3 mCameraPosition;
-		
-		float mCameraMoveSpeed = 5.0f;
-		float mCameraRotation = 0.0f;
-		float mCameraRotationSpeed = 180.0f;
+		LrssnEngine::OrthographicCameraController mCameraController;
 };
 
 class Sandbox : public LrssnEngine::Application{

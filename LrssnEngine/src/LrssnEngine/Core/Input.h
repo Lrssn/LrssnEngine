@@ -1,6 +1,6 @@
 #pragma once
 
-#include "LrssnEngine/Core.h"
+#include "LrssnEngine/Core/Core.h"
 
 namespace LrssnEngine {
 

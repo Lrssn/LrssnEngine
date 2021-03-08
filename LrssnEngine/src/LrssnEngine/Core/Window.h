@@ -2,7 +2,7 @@
 
 #include "lepch.h"
 
-#include "LrssnEngine/Core.h"
+#include "LrssnEngine/Core/Core.h"
 #include "LrssnEngine/Events/Event.h"
 
 namespace LrssnEngine {

@@ -1,14 +1,15 @@
 #pragma once
 
-#include "LrssnEngine/application.h"
-#include "LrssnEngine/Layer.h"
-#include "LrssnEngine/log.h"
+#include "LrssnEngine/Core/application.h"
+#include "LrssnEngine/Core/Layer.h"
+#include "LrssnEngine/Core/log.h"
 
 #include "LrssnEngine/Core/Timestep.h"
 
-#include "LrssnEngine/Input.h"
-#include "LrssnEngine/KeyCodes.h"
-#include "LrssnEngine/MouseButtonCodes.h"
+#include "LrssnEngine/Core/Input.h"
+#include "LrssnEngine/Core/KeyCodes.h"
+#include "LrssnEngine/Core/MouseButtonCodes.h"
+#include "LrssnEngine/Core/OrthographicCameraController.h"
 
 #include "LrssnEngine/ImGui/ImGuiLayer.h"
 // ---Renderer------------------------
@@ -24,4 +25,4 @@
 // -----------------------------------
 
 //include entrypoint last
-#include "LrssnEngine/entrypoint.h"
+#include "LrssnEngine/Core/entrypoint.h"

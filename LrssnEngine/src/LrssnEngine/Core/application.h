@@ -1,8 +1,8 @@
 #pragma once
-#include "LrssnEngine/core.h"
-#include "LrssnEngine/log.h"
-#include "Window.h"
-#include "LrssnEngine/LayerStack.h"
+#include "LrssnEngine/Core/core.h"
+#include "LrssnEngine/Core/log.h"
+#include "LrssnEngine/Core/Window.h"
+#include "LrssnEngine/Core/LayerStack.h"
 #include "LrssnEngine/Events/Event.h"
 #include "LrssnEngine/Events/ApplicationEvent.h"
 #include "LrssnEngine/ImGui/ImGuiLayer.h"
@@ -23,9 +23,11 @@ namespace LrssnEngine{
         inline static Application& Get() { return *s_mInstance; }
     private:
         bool OnWindowClose(WindowCloseEvent& e);
+        bool OnWindowResize(WindowResizeEvent& e);
         Scope<Window> mWindow;
         ImGuiLayer* mImGuiLayer;
         bool mRunning = true;
+        bool mMinimized = false;
         LayerStack mLayerStack;
         Timestep mLastFrameTime;
         static Application* s_mInstance;

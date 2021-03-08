@@ -15,7 +15,7 @@
 #include <unordered_set>
 
 
-#include "LrssnEngine/Log.h"
+#include "LrssnEngine/Core/Log.h"
 
 #ifdef LE_PLATFORM_WINDOWS
 	#include <Windows.h>
