@@ -84,7 +84,7 @@ public:
 			}
 		)";
 
-		mShader.reset(LrssnEngine::Shader::Create(vertexSrc, fragmentSrc));
+		mShader = LrssnEngine::Shader::Create("VertexPosColor", vertexSrc, fragmentSrc);
 
 		std::string flatColorShaderVertexSrc = R"(
 			#version 330 core
@@ -112,42 +112,16 @@ public:
 			}
 		)";
 
-		mFlatColorShader.reset(LrssnEngine::Shader::Create(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
+		mFlatColorShader = LrssnEngine::Shader::Create("FlatColor", flatColorShaderVertexSrc, flatColorShaderFragmentSrc);
 		
-		std::string textureShaderVertexSrc = R"(
-			#version 330 core
-			
-			layout(location = 0) in vec3 a_Position;
-			layout(location = 1) in vec2 a_TexCoord;
-			uniform mat4 u_ViewProjection;
-			uniform mat4 u_Transform;
-			out vec2 v_TexCoord;
-			void main()
-			{
-				v_TexCoord = a_TexCoord;
-				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);	
-			}
-		)";
+		auto textureShader = mShaderLibrary.Load("assets/shaders/texture.glsl");
 
-		std::string textureShaderFragmentSrc = R"(
-			#version 330 core
-			
-			layout(location = 0) out vec4 color;
-			in vec2 v_TexCoord;
-			
-			uniform sampler2D u_Texture;
-			void main()
-			{
-				color = texture(u_Texture, v_TexCoord);
-			}
-		)";
-
-		mTextureShader.reset(LrssnEngine::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
 
 		mTexture = LrssnEngine::Texture2D::Create("assets/textures/a.png");
+		mTexture2 = LrssnEngine::Texture2D::Create("assets/textures/b.png");
 
-		std::dynamic_pointer_cast<LrssnEngine::OpenGLShader>(mTextureShader)->Bind();
-		std::dynamic_pointer_cast<LrssnEngine::OpenGLShader>(mTextureShader)->UploadUniformInt("u_Texture", 0);
+		std::dynamic_pointer_cast<LrssnEngine::OpenGLShader>(textureShader)->Bind();
+		std::dynamic_pointer_cast<LrssnEngine::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(LrssnEngine::Timestep ts) override 	{
@@ -186,10 +160,12 @@ public:
 				LrssnEngine::Renderer::Submit(mFlatColorShader, mSquareVA, transform);
 			}
 		}
-
+		auto textureShader = mShaderLibrary.Get("texture");
 		mTexture->Bind();
-		LrssnEngine::Renderer::Submit(mTextureShader, mSquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
-
+		LrssnEngine::Renderer::Submit(textureShader, mSquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		mTexture2->Bind();
+		LrssnEngine::Renderer::Submit(textureShader, mSquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		
 		LrssnEngine::Renderer::EndScene();
 	}
 
@@ -202,21 +178,22 @@ public:
 	void OnEvent(LrssnEngine::Event& event) override 	{
 	}
 	private:
+		LrssnEngine::ShaderLibrary mShaderLibrary;
 		LrssnEngine::Ref<LrssnEngine::Shader> mShader;
+		LrssnEngine::Ref<LrssnEngine::Shader> mFlatColorShader;
+		
 		LrssnEngine::Ref<LrssnEngine::VertexArray> mVertexArray;
-
-		LrssnEngine::Ref<LrssnEngine::Shader> mFlatColorShader, mTextureShader;
 		LrssnEngine::Ref<LrssnEngine::VertexArray> mSquareVA;
 
-		LrssnEngine::Ref<LrssnEngine::Texture2D> mTexture;
+		LrssnEngine::Ref<LrssnEngine::Texture2D> mTexture, mTexture2;
+		glm::vec3 mSquareColor = { 0.2f, 0.3f, 0.8f };
 
 		LrssnEngine::OrthographicCamera mCamera;
 		glm::vec3 mCameraPosition;
+		
 		float mCameraMoveSpeed = 5.0f;
-
 		float mCameraRotation = 0.0f;
 		float mCameraRotationSpeed = 180.0f;
-		glm::vec3 mSquareColor = { 0.2f, 0.3f, 0.8f };
 };
 
 class Sandbox : public LrssnEngine::Application{

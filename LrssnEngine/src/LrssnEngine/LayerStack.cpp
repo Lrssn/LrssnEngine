@@ -33,7 +33,7 @@ namespace LrssnEngine {
 
 	void LayerStack::PopOverlay(Layer* overlay) 	{
 		auto it = std::find(mLayers.begin() + mLayerInsertIndex, mLayers.end(), overlay);
-		if (it != mLayers.end()) {
+		if (it != mLayers.begin() + mLayerInsertIndex){
 			overlay->OnDetach();
 			mLayers.erase(it);
 		}

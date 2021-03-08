@@ -6,6 +6,10 @@ namespace LrssnEngine {
 
 	class RenderCommand 	{
 	public:
+		inline static void Init() 		{
+			s_mRendererAPI->Init();
+		}
+
 		inline static void SetClearColor(const glm::vec4& color) 		{
 			s_mRendererAPI->SetClearColor(color);
 		}
