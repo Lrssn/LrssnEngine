@@ -144,12 +144,13 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\LrssnEngine\Renderer\Renderer2d.h" />
     <ClInclude Include="src\LrssnEngine\Core\Input.h" />
     <ClInclude Include="src\LrssnEngine\Core\KeyCodes.h" />
     <ClInclude Include="src\LrssnEngine\Core\Layer.h" />
     <ClInclude Include="src\LrssnEngine\Core\LayerStack.h" />
     <ClInclude Include="src\LrssnEngine\Core\MouseButtonCodes.h" />
-    <ClInclude Include="src\LrssnEngine\Core\OrthographicCameraController.h" />
+    <ClInclude Include="src\LrssnEngine\Renderer\OrthographicCameraController.h" />
     <ClInclude Include="src\LrssnEngine\Core\Timestep.h" />
     <ClInclude Include="src\LrssnEngine\Core\Window.h" />
     <ClInclude Include="src\LrssnEngine\Core\application.h" />
@@ -596,9 +597,10 @@
     <ClInclude Include="vendors\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\LrssnEngine\Renderer\Renderer2d.cpp" />
     <ClCompile Include="src\LrssnEngine\Core\Layer.cpp" />
     <ClCompile Include="src\LrssnEngine\Core\LayerStack.cpp" />
-    <ClCompile Include="src\LrssnEngine\Core\OrthographicCameraController.cpp" />
+    <ClCompile Include="src\LrssnEngine\Renderer\OrthographicCameraController.cpp" />
     <ClCompile Include="src\LrssnEngine\Core\application.cpp" />
     <ClCompile Include="src\LrssnEngine\Core\log.cpp" />
     <ClCompile Include="src\LrssnEngine\ImGui\ImGuiBuild.cpp" />

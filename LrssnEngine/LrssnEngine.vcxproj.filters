@@ -69,7 +69,7 @@
     <ClInclude Include="src\LrssnEngine\Core\MouseButtonCodes.h">
       <Filter>src\LrssnEngine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\LrssnEngine\Core\OrthographicCameraController.h">
+    <ClInclude Include="src\LrssnEngine\Renderer\OrthographicCameraController.h">
       <Filter>src\LrssnEngine\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\LrssnEngine\Core\Timestep.h">
@@ -1404,6 +1404,7 @@
     <ClInclude Include="vendors\stb_image\stb_image.h">
       <Filter>vendors\stb_image</Filter>
     </ClInclude>
+    <ClInclude Include="src\LrssnEngine\Renderer\Renderer2d.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\LrssnEngine\Core\Layer.cpp">
@@ -1412,7 +1413,7 @@
     <ClCompile Include="src\LrssnEngine\Core\LayerStack.cpp">
       <Filter>src\LrssnEngine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\LrssnEngine\Core\OrthographicCameraController.cpp">
+    <ClCompile Include="src\LrssnEngine\Renderer\OrthographicCameraController.cpp">
       <Filter>src\LrssnEngine\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\LrssnEngine\Core\application.cpp">
@@ -1481,5 +1482,6 @@
     <ClCompile Include="vendors\stb_image\stb_image.cpp">
       <Filter>vendors\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="src\LrssnEngine\Renderer\Renderer2d.cpp" />
   </ItemGroup>
 </Project>

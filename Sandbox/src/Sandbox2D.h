@@ -19,6 +19,6 @@ private:
 	// Temp
 	LrssnEngine::Ref<LrssnEngine::VertexArray> mSquareVA;
 	LrssnEngine::Ref<LrssnEngine::Shader> mFlatColorShader;
-
+	LrssnEngine::Ref<LrssnEngine::Texture2D> mTex;
 	glm::vec4 mSquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 };
