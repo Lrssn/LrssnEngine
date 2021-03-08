@@ -32,19 +32,19 @@ namespace LrssnEngine {
 		Add(name, shader);
 	}
 
-	LrssnEngine::Ref<LrssnEngine::Shader> ShaderLibrary::Load(const std::string& filepath) 	{
+	Ref<LrssnEngine::Shader> ShaderLibrary::Load(const std::string& filepath) 	{
 		auto shader = Shader::Create(filepath);
 		Add(shader);
 		return shader;
 	}
 
-	LrssnEngine::Ref<LrssnEngine::Shader> ShaderLibrary::Load(const std::string& name, const std::string& filepath) 	{
+	Ref<LrssnEngine::Shader> ShaderLibrary::Load(const std::string& name, const std::string& filepath) 	{
 		auto shader = Shader::Create(filepath);
 		Add(name, shader);
 		return shader;
 	}
 
-	LrssnEngine::Ref<LrssnEngine::Shader> ShaderLibrary::Get(const std::string& name) 	{
+	Ref<LrssnEngine::Shader> ShaderLibrary::Get(const std::string& name) 	{
 		LE_CORE_ASSERT(Exists(name), "Shader not found!");
 		return mShaders[name];
 	}

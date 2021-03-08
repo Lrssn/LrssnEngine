@@ -4,7 +4,9 @@
 
 namespace LrssnEngine {
 
-	Renderer::SceneData* Renderer::s_mSceneData = new Renderer::SceneData;
+	Scope<Renderer::SceneData> Renderer::s_mSceneData = CreateScope<Renderer::SceneData>();
+
+
 	void Renderer::Init() 	{
 		RenderCommand::Init();
 	}

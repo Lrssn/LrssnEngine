@@ -5,6 +5,6 @@
 
 namespace LrssnEngine {
 
-	RendererAPI* RenderCommand::s_mRendererAPI = new OpenGLRendererAPI;
+	Scope<RendererAPI> RenderCommand::s_mRendererAPI = CreateScope<OpenGLRendererAPI>();
 
 }

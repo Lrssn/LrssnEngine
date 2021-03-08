@@ -24,7 +24,7 @@ namespace LrssnEngine {
 		virtual float GetMouseXImpl() = 0;
 		virtual float GetMouseYImpl() = 0;
 	private:
-		static Input* s_mInstance;
+		static Scope<Input> s_mInstance;
 	};
 
 }

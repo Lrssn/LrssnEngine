@@ -6,7 +6,7 @@
 
 namespace LrssnEngine {
 
-	Input* Input::s_mInstance = new WindowsInput();
+	Scope<Input> Input::s_mInstance = CreateScope<WindowsInput>();
 
 	bool WindowsInput::IsKeyPressedImpl(int keycode) 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());

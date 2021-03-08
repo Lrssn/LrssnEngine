@@ -26,7 +26,7 @@ namespace LrssnEngine {
 			s_mRendererAPI->DrawIndexed(vertexArray);
 		}
 	private:
-		static RendererAPI* s_mRendererAPI;
+		static Scope<RendererAPI> s_mRendererAPI;
 	};
 
 }

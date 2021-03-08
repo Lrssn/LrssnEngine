@@ -23,6 +23,6 @@ namespace LrssnEngine {
 		glm::mat4 ViewProjectionMatrix;
 	};
 
-	static SceneData* s_mSceneData;
+	static Scope<SceneData> s_mSceneData;
 	};
 }

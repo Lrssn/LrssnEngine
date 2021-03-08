@@ -30,7 +30,7 @@ namespace LrssnEngine {
 		bool m_Rotation;
 
 		glm::vec3 mCameraPosition = { 0.0f, 0.0f, 0.0f };
-		float mCameraRotation = 0.0f;
+		float mCameraRotation = 0.0f;//In degrees, in the anti-clockwise direction
 		float mCameraTranslationSpeed = 5.0f, mCameraRotationSpeed = 180.0f;
 	};
 

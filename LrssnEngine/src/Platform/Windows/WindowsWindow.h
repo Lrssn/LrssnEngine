@@ -27,7 +27,7 @@ namespace LrssnEngine {
 		virtual void Shutdown();
 	private:
 		GLFWwindow* mWindow;
-		GraphicsContext* mContext;
+		Scope<GraphicsContext> mContext;
 		struct WindowData
 		{
 			std::string Title;
