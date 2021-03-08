@@ -1,16 +1,19 @@
 #include <Lrssnengine.h>
+#include <LrssnEngine/Core/EntryPoint.h>
 
 #include <imgui/imgui.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Sandbox2D.h"
 #include "Platform/OpenGL/OpenGLShader.h"
+
 
 class ExampleLayer : public LrssnEngine::Layer {
 public:
 	ExampleLayer()
 		: Layer("Example"), mCameraController(1280.0f / 720.0f){
-		mVertexArray.reset(LrssnEngine::VertexArray::Create());
+		mVertexArray = LrssnEngine::VertexArray::Create();
 
 		float vertices[3 * 7] = {
 			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
@@ -32,7 +35,7 @@ public:
 		indexBuffer.reset(LrssnEngine::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		mVertexArray->SetIndexBuffer(indexBuffer);
 
-		mSquareVA.reset(LrssnEngine::VertexArray::Create());
+		mSquareVA = LrssnEngine::VertexArray::Create();
 
 		float squareVertices[5 * 4] = {
 			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
@@ -180,7 +183,7 @@ public:
 class Sandbox : public LrssnEngine::Application{
 public:
 	Sandbox(){
-		PushLayer(new ExampleLayer());
+		PushLayer(new Sandbox2D());
 	};
 	~Sandbox(){};
 

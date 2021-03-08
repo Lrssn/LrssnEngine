@@ -23,6 +23,3 @@
 
 #include "LrssnEngine/Renderer/OrthographicCamera.h"
 // -----------------------------------
-
-//include entrypoint last
-#include "LrssnEngine/Core/entrypoint.h"
