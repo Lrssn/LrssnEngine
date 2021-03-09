@@ -16,7 +16,7 @@
 
 
 #include "LrssnEngine/Core/Log.h"
-
+#include "LrssnEngine/Debug/Instrumentor.h"
 #ifdef LE_PLATFORM_WINDOWS
 	#include <Windows.h>
 #endif

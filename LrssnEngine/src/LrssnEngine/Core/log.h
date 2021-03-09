@@ -1,13 +1,13 @@
 #pragma once
-#include "LrssnEngine/Core/core.h"
-#include "spdlog/spdlog.h"
-#include "spdlog/sinks/stdout_color_sinks.h"
-#include "spdlog/fmt/ostr.h"
+#include "LrssnEngine/Core/Core.h"
+#include <spdlog/spdlog.h>
+#include <spdlog/fmt/ostr.h>
+#include <spdlog/sinks/stdout_color_sinks.h>
+#include <spdlog/sinks/basic_file_sink.h>
 
 
 namespace LrssnEngine{
-    class LrssnEngine_API Log
-    {
+    class Log{
     public:
         static void init();
 

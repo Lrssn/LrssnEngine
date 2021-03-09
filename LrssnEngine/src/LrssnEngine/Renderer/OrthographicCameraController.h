@@ -27,7 +27,7 @@ namespace LrssnEngine {
 		float mZoomLevel = 1.0f;
 		OrthographicCamera mCamera;
 
-		bool m_Rotation;
+		bool m_Rotation = 0.0f;
 
 		glm::vec3 mCameraPosition = { 0.0f, 0.0f, 0.0f };
 		float mCameraRotation = 0.0f;//In degrees, in the anti-clockwise direction

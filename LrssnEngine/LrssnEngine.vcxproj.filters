@@ -66,7 +66,7 @@
     <ClInclude Include="src\LrssnEngine\Core\LayerStack.h">
       <Filter>src\LrssnEngine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\LrssnEngine\Core\MouseButtonCodes.h">
+    <ClInclude Include="src\LrssnEngine\Core\MouseCodes.h">
       <Filter>src\LrssnEngine\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\LrssnEngine\Renderer\OrthographicCameraController.h">
@@ -1405,6 +1405,7 @@
       <Filter>vendors\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="src\LrssnEngine\Renderer\Renderer2d.h" />
+    <ClInclude Include="src\LrssnEngine\Debug\Instrumentor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\LrssnEngine\Core\Layer.cpp">
@@ -1483,5 +1484,8 @@
       <Filter>vendors\stb_image</Filter>
     </ClCompile>
     <ClCompile Include="src\LrssnEngine\Renderer\Renderer2d.cpp" />
+    <ClCompile Include="src\LrssnEngine\Renderer\GraphicsContext.cpp" />
+    <ClCompile Include="src\LrssnEngine\Core\Input.cpp" />
+    <ClCompile Include="src\LrssnEngine\Core\Window.cpp" />
   </ItemGroup>
 </Project>

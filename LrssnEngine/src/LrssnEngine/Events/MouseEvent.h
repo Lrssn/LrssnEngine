@@ -1,11 +1,11 @@
 #pragma once
-#include "Event.h"
+#include "LrssnEngine/Events/Event.h"
+#include "LrssnEngine/Core/Input.h"
 
 
 namespace LrssnEngine {
 
-	class LrssnEngine_API MouseMovedEvent : public Event
-	{
+	class MouseMovedEvent : public Event {
 	public:
 		MouseMovedEvent(float x, float y)
 			: mMouseX(x), mMouseY(y) {}
@@ -13,8 +13,7 @@ namespace LrssnEngine {
 		inline float GetX() const { return mMouseX; }
 		inline float GetY() const { return mMouseY; }
 
-		std::string ToString() const override
-		{
+		std::string ToString() const override {
 			std::stringstream ss;
 			ss << "MouseMovedEvent: " << mMouseX << ", " << mMouseY;
 			return ss.str();
@@ -26,8 +25,7 @@ namespace LrssnEngine {
 		float mMouseX, mMouseY;
 	};
 
-	class LrssnEngine_API MouseScrolledEvent : public Event
-	{
+	class MouseScrolledEvent : public Event {
 	public:
 		MouseScrolledEvent(float xOffset, float yOffset)
 			: mXOffset(xOffset), mYOffset(yOffset) {}
@@ -35,8 +33,7 @@ namespace LrssnEngine {
 		inline float GetXOffset() const { return mXOffset; }
 		inline float GetYOffset() const { return mYOffset; }
 
-		std::string ToString() const override
-		{
+		std::string ToString() const override {
 			std::stringstream ss;
 			ss << "MouseScrolledEvent: " << GetXOffset() << ", " << GetYOffset();
 			return ss.str();
@@ -48,27 +45,24 @@ namespace LrssnEngine {
 		float mXOffset, mYOffset;
 	};
 
-	class LrssnEngine_API MouseButtonEvent : public Event
-	{
+	class MouseButtonEvent : public Event {
 	public:
-		inline int GetMouseButton() const { return mButton; }
+		inline MouseCode GetMouseButton() const { return mButton; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 	protected:
-		MouseButtonEvent(int button)
+		MouseButtonEvent(MouseCode button)
 			: mButton(button) {}
 
-		int mButton;
+		MouseCode mButton;
 	};
 
-	class LrssnEngine_API MouseButtonPressedEvent : public MouseButtonEvent
-	{
+	class MouseButtonPressedEvent : public MouseButtonEvent {
 	public:
-		MouseButtonPressedEvent(int button)
+		MouseButtonPressedEvent(MouseCode button)
 			: MouseButtonEvent(button) {}
 
-		std::string ToString() const override
-		{
+		std::string ToString() const override {
 			std::stringstream ss;
 			ss << "MouseButtonPressedEvent: " << mButton;
 			return ss.str();
@@ -77,14 +71,12 @@ namespace LrssnEngine {
 		EVENT_CLASS_TYPE(MouseButtonPressed)
 	};
 
-	class LrssnEngine_API MouseButtonReleasedEvent : public MouseButtonEvent
-	{
+	class MouseButtonReleasedEvent : public MouseButtonEvent {
 	public:
-		MouseButtonReleasedEvent(int button)
+		MouseButtonReleasedEvent(MouseCode button)
 			: MouseButtonEvent(button) {}
 
-		std::string ToString() const override
-		{
+		std::string ToString() const override {
 			std::stringstream ss;
 			ss << "MouseButtonReleasedEvent: " << mButton;
 			return ss.str();

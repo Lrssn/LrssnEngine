@@ -2,13 +2,13 @@
 
 #include <glm/glm.hpp>
 
-#include "VertexArray.h"
+#include "LrssnEngine/Renderer/VertexArray.h"
 
 namespace LrssnEngine {
 
 	class RendererAPI 	{
 	public:
-		enum class API 		{
+		enum class API{
 			None = 0, OpenGL = 1
 		};
 	public:
@@ -20,6 +20,7 @@ namespace LrssnEngine {
 		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray) = 0;
 
 		inline static API GetAPI() { return s_mAPI; }
+		static Scope<RendererAPI> Create();
 	private:
 		static API s_mAPI;
 	};

@@ -1,33 +1,32 @@
 #include "lepch.h"
-#include "WindowsWindow.h"
+#include "Platform/Windows/WindowsWindow.h"
 
 #include "LrssnEngine/Events/ApplicationEvent.h"
 #include "LrssnEngine/Events/MouseEvent.h"
 #include "LrssnEngine/Events/KeyEvent.h"
-
+#include "LrssnEngine/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLContext.h"
 
 namespace LrssnEngine {
 
 	static uint8_t s_GLFWWindowCount = 0;
 	
-	static void GLFWErrorCallback(int error, const char* description) 	{
+	static void GLFWErrorCallback(int error, const char* description) {
 		LE_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
 	}
 
-	Window* Window::Create(const WindowProps& props) 	{
-		return new WindowsWindow(props);
-	}
-
-	WindowsWindow::WindowsWindow(const WindowProps& props) 	{
+	WindowsWindow::WindowsWindow(const WindowProps& props) {
+		LE_PROFILE_FUNCTION();
 		Init(props);
 	}
 
-	WindowsWindow::~WindowsWindow() 	{
+	WindowsWindow::~WindowsWindow() {
+		LE_PROFILE_FUNCTION();
 		Shutdown();
 	}
 
 	void WindowsWindow::Init(const WindowProps& props) {
+		LE_PROFILE_FUNCTION();
 		mData.Title = props.Title;
 		mData.Width = props.Width;
 		mData.Height = props.Height;
@@ -35,16 +34,23 @@ namespace LrssnEngine {
 		LE_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
 		if (s_GLFWWindowCount == 0) {
-			LE_CORE_INFO("Initializing GLFW");
+			LE_PROFILE_SCOPE("glfwInit");
 			int success = glfwInit();
 			LE_CORE_ASSERT(success, "Could not intialize GLFW!");
 
 			glfwSetErrorCallback(GLFWErrorCallback);
 		}
-
-		mWindow = glfwCreateWindow((int)props.Width, (int)props.Height, mData.Title.c_str(), nullptr, nullptr);
-		++s_GLFWWindowCount;
-		mContext = CreateScope<OpenGLContext>(mWindow);
+		{
+			LE_PROFILE_SCOPE("glfwCreateWindow");
+			#if defined(LE_DEBUG)
+				if (Renderer::GetAPI() == RendererAPI::API::OpenGL) {
+					glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+				}
+			#endif
+			mWindow = glfwCreateWindow((int)props.Width, (int)props.Height, mData.Title.c_str(), nullptr, nullptr);
+			++s_GLFWWindowCount;
+		}
+		mContext = GraphicsContext::Create(mWindow);
 		mContext->Init();
 		
 		glfwSetWindowUserPointer(mWindow, &mData);
@@ -72,28 +78,28 @@ namespace LrssnEngine {
 			switch (action) {
 			case GLFW_PRESS:
 			{
-				KeyPressedEvent event(key, 0);
+				KeyPressedEvent event(static_cast<KeyCode>(key), 0);
 				data.EventCallback(event);
 				break;
 			}
 			case GLFW_RELEASE:
 			{
-				KeyReleasedEvent event(key);
+				KeyReleasedEvent event(static_cast<KeyCode>(key));
 				data.EventCallback(event);
 				break;
 			}
 			case GLFW_REPEAT:
 			{
-				KeyPressedEvent event(key, 1);
+				KeyPressedEvent event(static_cast<KeyCode>(key), 1);
 				data.EventCallback(event);
 				break;
 			}
 			}
 			});
-		glfwSetCharCallback(mWindow, [](GLFWwindow* window, unsigned int keycode) 		{
+		glfwSetCharCallback(mWindow, [](GLFWwindow* window, unsigned int key) {
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
-			KeyTypedEvent event(keycode);
+			KeyTypedEvent event(static_cast<KeyCode>(key));
 			data.EventCallback(event);
 			});
 
@@ -103,13 +109,13 @@ namespace LrssnEngine {
 			switch (action) {
 			case GLFW_PRESS:
 			{
-				MouseButtonPressedEvent event(button);
+				MouseButtonPressedEvent event(static_cast<MouseCode>(button));
 				data.EventCallback(event);
 				break;
 			}
 			case GLFW_RELEASE:
 			{
-				MouseButtonReleasedEvent event(button);
+				MouseButtonReleasedEvent event(static_cast<MouseCode>(button));
 				data.EventCallback(event);
 				break;
 			}
@@ -131,20 +137,24 @@ namespace LrssnEngine {
 			});
 	}
 
-	void WindowsWindow::Shutdown() 	{
+	void WindowsWindow::Shutdown() {
+		LE_PROFILE_FUNCTION();
 		glfwDestroyWindow(mWindow);
-		if (--s_GLFWWindowCount == 0) {
+		--s_GLFWWindowCount;
+		if (s_GLFWWindowCount == 0) {
 			LE_CORE_INFO("Terminating GLFW");
 			glfwTerminate();
 		}
 	}
 
-	void WindowsWindow::OnUpdate() 	{
+	void WindowsWindow::OnUpdate() {
+		LE_PROFILE_FUNCTION();
 		glfwPollEvents();
 		mContext->SwapBuffers();
 	}
 
-	void WindowsWindow::SetVSync(bool enabled) 	{
+	void WindowsWindow::SetVSync(bool enabled) {
+		LE_PROFILE_FUNCTION();
 		if (enabled)
 			glfwSwapInterval(1);
 		else
@@ -153,7 +163,7 @@ namespace LrssnEngine {
 		mData.VSync = enabled;
 	}
 
-	bool WindowsWindow::IsVSync() const 	{
+	bool WindowsWindow::IsVSync() const {
 		return mData.VSync;
 	}
 

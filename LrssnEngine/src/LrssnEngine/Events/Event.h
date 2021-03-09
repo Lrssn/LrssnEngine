@@ -1,6 +1,6 @@
 #pragma once
 #include "lepch.h"
-#include "LrssnEngine/Core/core.h"
+#include "LrssnEngine/Core/Core.h"
 
 
 namespace LrssnEngine {
@@ -35,8 +35,7 @@ namespace LrssnEngine {
 
 #define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
 
-	class LrssnEngine_API Event
-	{
+	class Event {
 	public:
 		bool Handled = false;
 		virtual EventType GetEventType() const = 0;
@@ -44,26 +43,20 @@ namespace LrssnEngine {
 		virtual int GetCategoryFlags() const = 0;
 		virtual std::string ToString() const { return GetName(); }
 
-		inline bool IsInCategory(EventCategory category)
-		{
+		inline bool IsInCategory(EventCategory category) {
 			return GetCategoryFlags() & category;
 		}
 	protected:
 	};
 
-	class EventDispatcher
-	{
+	class EventDispatcher {
 	public:
 		EventDispatcher(Event& event)
-			: mEvent(event)
-		{
-		}
+			: mEvent(event){}
 		// F will be deduced by the compiler
 		template<typename T, typename F>
-		bool Dispatch(const F& func)
-		{
-			if (mEvent.GetEventType() == T::GetStaticType())
-			{
+		bool Dispatch(const F& func){
+			if (mEvent.GetEventType() == T::GetStaticType()){
 				mEvent.Handled = func(static_cast<T&>(mEvent));
 				return true;
 			}
@@ -73,8 +66,7 @@ namespace LrssnEngine {
 		Event& mEvent;
 	};
 
-	inline std::ostream& operator<<(std::ostream& os, const Event& e)
-	{
+	inline std::ostream& operator<<(std::ostream& os, const Event& e){
 		return os << e.ToString();
 	}
 }

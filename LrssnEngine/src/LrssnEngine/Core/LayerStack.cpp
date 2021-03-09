@@ -1,10 +1,7 @@
 #include "lepch.h"
-#include "LayerStack.h"
+#include "LrssnEngine/Core/LayerStack.h"
 
 namespace LrssnEngine {
-
-	LayerStack::LayerStack() 	{
-	}
 
 	LayerStack::~LayerStack() 	{
 		for (Layer* layer : mLayers) {
@@ -17,12 +14,10 @@ namespace LrssnEngine {
 	void LayerStack::PushLayer(Layer* layer) 	{
 		mLayers.emplace(mLayers.begin() + mLayerInsertIndex, layer);
 		mLayerInsertIndex++;
-		layer->OnAttach();
 	}
 
 	void LayerStack::PushOverlay(Layer* overlay) 	{
 		mLayers.emplace_back(overlay);
-		overlay->OnAttach();
 	}
 
 	void LayerStack::PopLayer(Layer* layer) 	{

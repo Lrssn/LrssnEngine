@@ -1,32 +1,30 @@
 #pragma once
-#include "Event.h"
+#include "LrssnEngine/Events/Event.h"
+#include "LrssnEngine/Core/Input.h"
 
 
 namespace LrssnEngine {
 
-	class LrssnEngine_API KeyEvent : public Event
-	{
+	class KeyEvent : public Event {
 	public:
-		inline int GetKeyCode() const { return mKeyCode; }
+		inline KeyCode GetKeyCode() const { return mKeyCode; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 	protected:
-		KeyEvent(int keycode)
+		KeyEvent(KeyCode keycode)
 			: mKeyCode(keycode) {}
 
-		int mKeyCode;
+		KeyCode mKeyCode;
 	};
 
-	class LrssnEngine_API KeyPressedEvent : public KeyEvent
-	{
+	class KeyPressedEvent : public KeyEvent{
 	public:
-		KeyPressedEvent(int keycode, int repeatCount)
+		KeyPressedEvent(KeyCode keycode, int repeatCount)
 			: KeyEvent(keycode), mRepeatCount(repeatCount) {}
 
 		inline int GetRepeatCount() const { return mRepeatCount; }
 
-		std::string ToString() const override
-		{
+		std::string ToString() const override{
 			std::stringstream ss;
 			ss << "KeyPressedEvent: " << mKeyCode << " (" << mRepeatCount << " repeats)";
 			return ss.str();
@@ -37,14 +35,12 @@ namespace LrssnEngine {
 		int mRepeatCount;
 	};
 
-	class LrssnEngine_API KeyReleasedEvent : public KeyEvent
-	{
+	class KeyReleasedEvent : public KeyEvent{
 	public:
-		KeyReleasedEvent(int keycode)
+		KeyReleasedEvent(KeyCode keycode)
 			: KeyEvent(keycode) {}
 
-		std::string ToString() const override
-		{
+		std::string ToString() const override {
 			std::stringstream ss;
 			ss << "KeyReleasedEvent: " << mKeyCode;
 			return ss.str();
@@ -53,13 +49,13 @@ namespace LrssnEngine {
 		EVENT_CLASS_TYPE(KeyReleased)
 	};
 
-	class LrssnEngine_API KeyTypedEvent : public KeyEvent {
+	class KeyTypedEvent : public KeyEvent {
 	public:
-		KeyTypedEvent(int keycode)
+		KeyTypedEvent(KeyCode keycode)
 			: KeyEvent(keycode) {
 		}
 
-		std::string ToString() const override 		{
+		std::string ToString() const override {
 			std::stringstream ss;
 			ss << "KeyTypedEvent: " << mKeyCode;
 			return ss.str();

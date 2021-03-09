@@ -2,11 +2,11 @@
 
 namespace LrssnEngine {
 
-	enum class ShaderDataType 	{
+	enum class ShaderDataType{
 		None = 0, Float, Float2, Float3, Float4, Mat3, Mat4, Int, Int2, Int3, Int4, Bool
 	};
 
-	static uint32_t ShaderDataTypeSize(ShaderDataType type) 	{
+	static uint32_t ShaderDataTypeSize(ShaderDataType type){
 		switch (type) 		{
 		case ShaderDataType::Float:    return 4;
 		case ShaderDataType::Float2:   return 4 * 2;
@@ -25,7 +25,7 @@ namespace LrssnEngine {
 		return 0;
 	}
 
-	struct BufferElement 	{
+	struct BufferElement{
 		std::string Name;
 		ShaderDataType Type;
 		uint32_t Size;
@@ -35,11 +35,11 @@ namespace LrssnEngine {
 		BufferElement() = default;
 
 		BufferElement(ShaderDataType type, const std::string& name, bool normalized = false)
-			: Name(name), Type(type), Size(ShaderDataTypeSize(type)), Offset(0), Normalized(normalized) 		{
+			: Name(name), Type(type), Size(ShaderDataTypeSize(type)), Offset(0), Normalized(normalized){
 		}
 
-		uint32_t GetComponentCount() const 		{
-			switch (Type) 			{
+		uint32_t GetComponentCount() const{
+			switch (Type){
 			case ShaderDataType::Float:   return 1;
 			case ShaderDataType::Float2:  return 2;
 			case ShaderDataType::Float3:  return 3;
@@ -58,7 +58,7 @@ namespace LrssnEngine {
 		}
 	};
 
-	class BufferLayout 	{
+	class BufferLayout{
 	public:
 		BufferLayout() {}
 
@@ -98,7 +98,7 @@ namespace LrssnEngine {
 
 		virtual const BufferLayout& GetLayout() const = 0;
 		virtual void SetLayout(const BufferLayout& layout) = 0;
-		static VertexBuffer* Create(float* vertices, uint32_t size);
+		static Ref<VertexBuffer> Create(float* vertices, uint32_t size);
 	};
 
 	class IndexBuffer 	{
@@ -110,7 +110,7 @@ namespace LrssnEngine {
 
 		virtual uint32_t GetCount() const = 0;
 
-		static IndexBuffer* Create(uint32_t* indices, uint32_t size);
+		static Ref<IndexBuffer> Create(uint32_t* indices, uint32_t size);
 	};
 
 }

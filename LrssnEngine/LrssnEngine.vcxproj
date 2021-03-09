@@ -144,19 +144,20 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\LrssnEngine\Debug\Instrumentor.h" />
     <ClInclude Include="src\LrssnEngine\Renderer\Renderer2d.h" />
     <ClInclude Include="src\LrssnEngine\Core\Input.h" />
     <ClInclude Include="src\LrssnEngine\Core\KeyCodes.h" />
     <ClInclude Include="src\LrssnEngine\Core\Layer.h" />
     <ClInclude Include="src\LrssnEngine\Core\LayerStack.h" />
-    <ClInclude Include="src\LrssnEngine\Core\MouseButtonCodes.h" />
+    <ClInclude Include="src\LrssnEngine\Core\MouseCodes.h" />
     <ClInclude Include="src\LrssnEngine\Renderer\OrthographicCameraController.h" />
     <ClInclude Include="src\LrssnEngine\Core\Timestep.h" />
     <ClInclude Include="src\LrssnEngine\Core\Window.h" />
-    <ClInclude Include="src\LrssnEngine\Core\application.h" />
-    <ClInclude Include="src\LrssnEngine\Core\core.h" />
-    <ClInclude Include="src\LrssnEngine\Core\entrypoint.h" />
-    <ClInclude Include="src\LrssnEngine\Core\log.h" />
+    <ClInclude Include="src\LrssnEngine\Core\Application.h" />
+    <ClInclude Include="src\LrssnEngine\Core\Core.h" />
+    <ClInclude Include="src\LrssnEngine\Core\Entrypoint.h" />
+    <ClInclude Include="src\LrssnEngine\Core\Log.h" />
     <ClInclude Include="src\LrssnEngine\Events\ApplicationEvent.h" />
     <ClInclude Include="src\LrssnEngine\Events\Event.h" />
     <ClInclude Include="src\LrssnEngine\Events\KeyEvent.h" />
@@ -597,12 +598,15 @@
     <ClInclude Include="vendors\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\LrssnEngine\Core\Input.cpp" />
+    <ClCompile Include="src\LrssnEngine\Core\Window.cpp" />
+    <ClCompile Include="src\LrssnEngine\Renderer\GraphicsContext.cpp" />
     <ClCompile Include="src\LrssnEngine\Renderer\Renderer2d.cpp" />
     <ClCompile Include="src\LrssnEngine\Core\Layer.cpp" />
     <ClCompile Include="src\LrssnEngine\Core\LayerStack.cpp" />
     <ClCompile Include="src\LrssnEngine\Renderer\OrthographicCameraController.cpp" />
-    <ClCompile Include="src\LrssnEngine\Core\application.cpp" />
-    <ClCompile Include="src\LrssnEngine\Core\log.cpp" />
+    <ClCompile Include="src\LrssnEngine\Core\Application.cpp" />
+    <ClCompile Include="src\LrssnEngine\Core\Log.cpp" />
     <ClCompile Include="src\LrssnEngine\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\LrssnEngine\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\LrssnEngine\Renderer\Buffer.cpp" />

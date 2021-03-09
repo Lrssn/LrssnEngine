@@ -42,22 +42,6 @@
     #error "Unknown platform!"
 #endif // End of platform detection
 
-
-
-#ifdef LE_PLATFORM_WINDOWS
-    #if LE_DYNAMIC_LINK
-        #ifdef  LE_BUILD_DLL
-            #define LrssnEngine_API __declspec(dllexport)
-        #else
-            #define LrssnEngine_API __declspec(dllimport)
-        #endif
-    #else
-        #define LrssnEngine_API
-    #endif
-#else
-    #error LrssnEngine only supports windows!
-#endif
-
 #ifdef LE_DEBUG
     #define LE_ENABLE_ASSERTS
 #endif

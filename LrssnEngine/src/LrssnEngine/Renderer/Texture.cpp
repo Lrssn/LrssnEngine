@@ -1,6 +1,6 @@
 #include "lepch.h"
-#include "Texture.h"
-#include "Renderer.h"
+#include "LrssnEngine/Renderer/Texture.h"
+#include "LrssnEngine/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLTexture.h"
 
 namespace LrssnEngine {

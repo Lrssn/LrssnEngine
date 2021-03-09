@@ -1,5 +1,5 @@
 #include "lepch.h"
-#include "OpenGLVertexArray.h"
+#include "Platform/OpenGL/OpenGLVertexArray.h"
 
 #include <glad/glad.h>
 
@@ -7,40 +7,45 @@ namespace LrssnEngine {
 
 	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type) 	{
 		switch (type) 		{
-		case LrssnEngine::ShaderDataType::Float:    return GL_FLOAT;
-		case LrssnEngine::ShaderDataType::Float2:   return GL_FLOAT;
-		case LrssnEngine::ShaderDataType::Float3:   return GL_FLOAT;
-		case LrssnEngine::ShaderDataType::Float4:   return GL_FLOAT;
-		case LrssnEngine::ShaderDataType::Mat3:     return GL_FLOAT;
-		case LrssnEngine::ShaderDataType::Mat4:     return GL_FLOAT;
-		case LrssnEngine::ShaderDataType::Int:      return GL_INT;
-		case LrssnEngine::ShaderDataType::Int2:     return GL_INT;
-		case LrssnEngine::ShaderDataType::Int3:     return GL_INT;
-		case LrssnEngine::ShaderDataType::Int4:     return GL_INT;
-		case LrssnEngine::ShaderDataType::Bool:     return GL_BOOL;
+		case ShaderDataType::Float:    return GL_FLOAT;
+		case ShaderDataType::Float2:   return GL_FLOAT;
+		case ShaderDataType::Float3:   return GL_FLOAT;
+		case ShaderDataType::Float4:   return GL_FLOAT;
+		case ShaderDataType::Mat3:     return GL_FLOAT;
+		case ShaderDataType::Mat4:     return GL_FLOAT;
+		case ShaderDataType::Int:      return GL_INT;
+		case ShaderDataType::Int2:     return GL_INT;
+		case ShaderDataType::Int3:     return GL_INT;
+		case ShaderDataType::Int4:     return GL_INT;
+		case ShaderDataType::Bool:     return GL_BOOL;
 		}
 
 		LE_CORE_ASSERT(false, "Unknown ShaderDataType!");
 		return 0;
 	}
 
-	OpenGLVertexArray::OpenGLVertexArray() 	{
+	OpenGLVertexArray::OpenGLVertexArray() {
+		LE_PROFILE_FUNCTION();
 		glCreateVertexArrays(1, &mRendererID);
 	}
 
-	OpenGLVertexArray::~OpenGLVertexArray() 	{
+	OpenGLVertexArray::~OpenGLVertexArray() {
+		LE_PROFILE_FUNCTION();
 		glDeleteVertexArrays(1, &mRendererID);
 	}
 
-	void OpenGLVertexArray::Bind() const 	{
+	void OpenGLVertexArray::Bind() const {
+		LE_PROFILE_FUNCTION();
 		glBindVertexArray(mRendererID);
 	}
 
-	void OpenGLVertexArray::Unbind() const 	{
+	void OpenGLVertexArray::Unbind() const {
+		LE_PROFILE_FUNCTION();
 		glBindVertexArray(0);
 	}
 
-	void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) 	{
+	void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) {
+		LE_PROFILE_FUNCTION();
 		LE_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has no layout!");
 
 		glBindVertexArray(mRendererID);
@@ -60,7 +65,8 @@ namespace LrssnEngine {
 		mVertexBuffers.push_back(vertexBuffer);
 	}
 
-	void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) 	{
+	void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) {
+		LE_PROFILE_FUNCTION();
 		glBindVertexArray(mRendererID);
 		indexBuffer->Bind();
 

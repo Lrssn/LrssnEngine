@@ -1,7 +1,7 @@
 #pragma once
 
-#include "OrthographicCamera.h"
-#include "Texture.h"
+#include "LrssnEngine/Renderer/OrthographicCamera.h"
+#include "LrssnEngine/Renderer/Texture.h"
 namespace LrssnEngine {
 
 	class Renderer2D 	{

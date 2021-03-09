@@ -1,7 +1,7 @@
 #include "lepch.h"
-#include "OpenGLTexture.h"
+#include "Platform/OpenGL/OpenGLTexture.h"
 
-#include "stb_image.h"
+#include <stb_image.h>
 
 #include <glad/glad.h>
 
@@ -9,6 +9,7 @@ namespace LrssnEngine {
 
 	OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height)
 		: mWidth(width), mHeight(height) 	{
+		LE_PROFILE_FUNCTION();
 		mInternalFormat = GL_RGBA8;
 		mDataFormat = GL_RGBA;
 
@@ -23,7 +24,8 @@ namespace LrssnEngine {
 	}
 
 	OpenGLTexture2D::OpenGLTexture2D(const std::string& path)
-		: mPath(path) 	{
+		: mPath(path) {
+		LE_PROFILE_FUNCTION();
 		int width, height, channels;
 		stbi_set_flip_vertically_on_load(1);
 		stbi_uc* data = stbi_load(path.c_str(), &width, &height, &channels, 0);
@@ -35,7 +37,7 @@ namespace LrssnEngine {
 		if (channels == 4) 		{
 			internalFormat = GL_RGBA8;
 			dataFormat = GL_RGBA;
-		} 		else if (channels == 3) 		{
+		}else if (channels == 3) {
 			internalFormat = GL_RGB8;
 			dataFormat = GL_RGB;
 		}
@@ -58,17 +60,20 @@ namespace LrssnEngine {
 		stbi_image_free(data);
 	}
 
-	OpenGLTexture2D::~OpenGLTexture2D() 	{
+	OpenGLTexture2D::~OpenGLTexture2D() {
+		LE_PROFILE_FUNCTION();
 		glDeleteTextures(1, &mRendererID);
 	}
 
-	void OpenGLTexture2D::SetData(void* data, uint32_t size) 	{
+	void OpenGLTexture2D::SetData(void* data, uint32_t size) {
+		LE_PROFILE_FUNCTION();
 		uint32_t bpp = mDataFormat == GL_RGBA ? 4 : 3;
 		LE_CORE_ASSERT(size == mWidth * mHeight * bpp, "Data must be entire texture!");
 		glTextureSubImage2D(mRendererID, 0, 0, 0, mWidth, mHeight, mDataFormat, GL_UNSIGNED_BYTE, data);
 	}
 
-	void OpenGLTexture2D::Bind(uint32_t slot) const 	{
+	void OpenGLTexture2D::Bind(uint32_t slot) const {
+		LE_PROFILE_FUNCTION();
 		glBindTextureUnit(slot, mRendererID);
 	}
 }

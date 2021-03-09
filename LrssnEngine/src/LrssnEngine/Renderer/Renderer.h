@@ -1,15 +1,16 @@
 #pragma once
 
-#include "RenderCommand.h"
+#include "LrssnEngine/Renderer/RenderCommand.h"
 
-#include "OrthographicCamera.h"
-#include "Shader.h"
+#include "LrssnEngine/Renderer/OrthographicCamera.h"
+#include "LrssnEngine/Renderer/Shader.h"
 
 namespace LrssnEngine {
 
 	class Renderer 	{
 	public:
 		static void Init();
+		static void Renderer::Shutdown();
 		static void OnWindowResize(uint32_t width, uint32_t height);
 		static void BeginScene(OrthographicCamera& camera);
 		static void EndScene();

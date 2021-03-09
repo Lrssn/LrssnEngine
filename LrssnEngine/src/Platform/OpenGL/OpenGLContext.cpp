@@ -1,5 +1,5 @@
 #include "lepch.h"
-#include "OpenGLContext.h"
+#include "Platform/OpenGL/OpenGLContext.h"
 
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
@@ -13,6 +13,7 @@ namespace LrssnEngine {
 	}
 
 	void OpenGLContext::Init() 	{
+		LE_PROFILE_FUNCTION();
 		glfwMakeContextCurrent(mWindowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		LE_CORE_ASSERT(status, "Failed to initialize Glad!");
@@ -32,6 +33,7 @@ namespace LrssnEngine {
 	}
 
 	void OpenGLContext::SwapBuffers() 	{
+		LE_PROFILE_FUNCTION();
 		glfwSwapBuffers(mWindowHandle);
 	}
 
