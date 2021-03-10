@@ -352,3 +352,6 @@ MigrationBackup/
 
 #Imgui ini file
 Sandbox/imgui.ini
+
+#Debug src code
+!LrssnEngine\src\LrssnEngine\Debug
