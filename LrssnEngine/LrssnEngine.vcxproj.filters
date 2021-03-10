@@ -10,6 +10,9 @@
     <Filter Include="src\LrssnEngine\Core">
       <UniqueIdentifier>{DC341D3F-C8C3-A608-71E2-BA035D50B7AE}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\LrssnEngine\Debug">
+      <UniqueIdentifier>{7A2BD022-E697-8B1D-AF8B-237B1BB7AD85}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\LrssnEngine\Events">
       <UniqueIdentifier>{68ED5F80-54E7-88D2-3D54-1FE329EDEE3E}</UniqueIdentifier>
     </Filter>
@@ -54,6 +57,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\LrssnEngine\Core\Application.h">
+      <Filter>src\LrssnEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LrssnEngine\Core\Core.h">
+      <Filter>src\LrssnEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LrssnEngine\Core\Entrypoint.h">
+      <Filter>src\LrssnEngine\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\LrssnEngine\Core\Input.h">
       <Filter>src\LrssnEngine\Core</Filter>
     </ClInclude>
@@ -66,10 +78,10 @@
     <ClInclude Include="src\LrssnEngine\Core\LayerStack.h">
       <Filter>src\LrssnEngine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\LrssnEngine\Core\MouseCodes.h">
+    <ClInclude Include="src\LrssnEngine\Core\Log.h">
       <Filter>src\LrssnEngine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\LrssnEngine\Renderer\OrthographicCameraController.h">
+    <ClInclude Include="src\LrssnEngine\Core\MouseCodes.h">
       <Filter>src\LrssnEngine\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\LrssnEngine\Core\Timestep.h">
@@ -78,17 +90,8 @@
     <ClInclude Include="src\LrssnEngine\Core\Window.h">
       <Filter>src\LrssnEngine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\LrssnEngine\Core\application.h">
-      <Filter>src\LrssnEngine\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\LrssnEngine\Core\core.h">
-      <Filter>src\LrssnEngine\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\LrssnEngine\Core\entrypoint.h">
-      <Filter>src\LrssnEngine\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\LrssnEngine\Core\log.h">
-      <Filter>src\LrssnEngine\Core</Filter>
+    <ClInclude Include="src\LrssnEngine\Debug\Instrumentor.h">
+      <Filter>src\LrssnEngine\Debug</Filter>
     </ClInclude>
     <ClInclude Include="src\LrssnEngine\Events\ApplicationEvent.h">
       <Filter>src\LrssnEngine\Events</Filter>
@@ -114,10 +117,16 @@
     <ClInclude Include="src\LrssnEngine\Renderer\OrthographicCamera.h">
       <Filter>src\LrssnEngine\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\LrssnEngine\Renderer\OrthographicCameraController.h">
+      <Filter>src\LrssnEngine\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\LrssnEngine\Renderer\RenderCommand.h">
       <Filter>src\LrssnEngine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\LrssnEngine\Renderer\Renderer.h">
+      <Filter>src\LrssnEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LrssnEngine\Renderer\Renderer2d.h">
       <Filter>src\LrssnEngine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\LrssnEngine\Renderer\RendererAPI.h">
@@ -1404,23 +1413,24 @@
     <ClInclude Include="vendors\stb_image\stb_image.h">
       <Filter>vendors\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\LrssnEngine\Renderer\Renderer2d.h" />
-    <ClInclude Include="src\LrssnEngine\Debug\Instrumentor.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\LrssnEngine\Core\Application.cpp">
+      <Filter>src\LrssnEngine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LrssnEngine\Core\Input.cpp">
+      <Filter>src\LrssnEngine\Core</Filter>
+    </ClCompile>
     <ClCompile Include="src\LrssnEngine\Core\Layer.cpp">
       <Filter>src\LrssnEngine\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\LrssnEngine\Core\LayerStack.cpp">
       <Filter>src\LrssnEngine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\LrssnEngine\Renderer\OrthographicCameraController.cpp">
+    <ClCompile Include="src\LrssnEngine\Core\Log.cpp">
       <Filter>src\LrssnEngine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\LrssnEngine\Core\application.cpp">
-      <Filter>src\LrssnEngine\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\LrssnEngine\Core\log.cpp">
+    <ClCompile Include="src\LrssnEngine\Core\Window.cpp">
       <Filter>src\LrssnEngine\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\LrssnEngine\ImGui\ImGuiBuild.cpp">
@@ -1432,13 +1442,22 @@
     <ClCompile Include="src\LrssnEngine\Renderer\Buffer.cpp">
       <Filter>src\LrssnEngine\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\LrssnEngine\Renderer\GraphicsContext.cpp">
+      <Filter>src\LrssnEngine\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\LrssnEngine\Renderer\OrthographicCamera.cpp">
+      <Filter>src\LrssnEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LrssnEngine\Renderer\OrthographicCameraController.cpp">
       <Filter>src\LrssnEngine\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\LrssnEngine\Renderer\RenderCommand.cpp">
       <Filter>src\LrssnEngine\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\LrssnEngine\Renderer\Renderer.cpp">
+      <Filter>src\LrssnEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LrssnEngine\Renderer\Renderer2d.cpp">
       <Filter>src\LrssnEngine\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\LrssnEngine\Renderer\RendererAPI.cpp">
@@ -1483,9 +1502,5 @@
     <ClCompile Include="vendors\stb_image\stb_image.cpp">
       <Filter>vendors\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\LrssnEngine\Renderer\Renderer2d.cpp" />
-    <ClCompile Include="src\LrssnEngine\Renderer\GraphicsContext.cpp" />
-    <ClCompile Include="src\LrssnEngine\Core\Input.cpp" />
-    <ClCompile Include="src\LrssnEngine\Core\Window.cpp" />
   </ItemGroup>
 </Project>
