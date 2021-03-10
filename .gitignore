@@ -4,7 +4,7 @@
 !vendor/premake/bin/
 bin-int/
 
-# Hazel files
+# Log files
 *.log
 
 # Visual Studio files and folder
@@ -13,3 +13,11 @@ bin-int/
 **.vcxproj
 **.vcxproj.filters
 **.vcxproj.user
+
+#imgui file
+Sandbox/imgui.ini
+
+#Profiling files
+Sandbox/LrssnEngine-Profile-Startup.json
+Sandbox/LrssnEngine-Profile-Runtime.json
+Sandbox/LrssnEngine-Profile-Shutdown.json
