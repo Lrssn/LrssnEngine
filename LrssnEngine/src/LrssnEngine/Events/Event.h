@@ -1,6 +1,6 @@
 #pragma once
 #include "lepch.h"
-#include "LrssnEngine/Core/Core.h"
+#include "LrssnEngine/Core/Base.h"
 
 
 namespace LrssnEngine {
@@ -43,7 +43,7 @@ namespace LrssnEngine {
 		virtual int GetCategoryFlags() const = 0;
 		virtual std::string ToString() const { return GetName(); }
 
-		inline bool IsInCategory(EventCategory category) {
+		bool IsInCategory(EventCategory category) {
 			return GetCategoryFlags() & category;
 		}
 	protected:

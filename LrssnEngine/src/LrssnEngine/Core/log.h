@@ -1,5 +1,5 @@
 #pragma once
-#include "LrssnEngine/Core/Core.h"
+#include "LrssnEngine/Core/Base.h"
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/ostr.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
@@ -11,8 +11,8 @@ namespace LrssnEngine{
     public:
         static void init();
 
-        inline static Ref<spdlog::logger>& GetCoreLogger(){ return s_CoreLogger;};
-        inline static Ref<spdlog::logger>& GetClientLogger(){ return s_ClientLogger;};
+        static Ref<spdlog::logger>& GetCoreLogger(){ return s_CoreLogger;};
+        static Ref<spdlog::logger>& GetClientLogger(){ return s_ClientLogger;};
     private:
         static Ref<spdlog::logger> s_CoreLogger;
         static Ref<spdlog::logger> s_ClientLogger;

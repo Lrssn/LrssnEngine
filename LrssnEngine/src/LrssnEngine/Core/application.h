@@ -1,5 +1,5 @@
 #pragma once
-#include "LrssnEngine/Core/Core.h"
+#include "LrssnEngine/Core/Base.h"
 #include "LrssnEngine/Core/LayerStack.h"
 #include "LrssnEngine/Core/Log.h"
 #include "LrssnEngine/Core/Timestep.h"
@@ -20,8 +20,8 @@ namespace LrssnEngine{
         void PushLayer(Layer* layer);
         void PushOverlay(Layer* layer); 
         
-        inline Window& GetWindow() { return *mWindow; }
-        inline static Application& Get() { return *s_mInstance; }
+        Window& GetWindow() { return *mWindow; }
+        static Application& Get() { return *s_mInstance; }
     private:
         void run();
         bool OnWindowClose(WindowCloseEvent& e);

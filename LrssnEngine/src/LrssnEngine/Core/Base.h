@@ -43,15 +43,25 @@
 #endif // End of platform detection
 
 #ifdef LE_DEBUG
+    #if defined(LE_PLATFORM_WINDOWS)
+        #define LE_DEBUGBREAK() __debugbreak()
+    #elif defined(LE_PLATFORM_LINUX)
+        #include <signal.h>
+        #define LE_DEBUGBREAK() raise(SIGTRAP)
+    #else
+        #error "Platform doesn't support debugbreak yet!"
+    #endif
     #define LE_ENABLE_ASSERTS
+#else
+    #define LE_DEBUGBREAK()
 #endif
 
 #ifdef LE_ENABLE_ASSERTS
-#define LE_ASSERT(x, ...) { if(!(x)) { LE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
-#define LE_CORE_ASSERT(x, ...) { if(!(x)) { LE_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+    #define LE_ASSERT(x, ...) { if(!(x)) { LE_ERROR("Assertion Failed: {0}", __VA_ARGS__); LE_DEBUGBREAK(); } }
+    #define LE_CORE_ASSERT(x, ...) { if(!(x)) { LE_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); LE_DEBUGBREAK(); } }
 #else
-#define LE_ASSERT(x, ...)
-#define LE_CORE_ASSERT(x, ...)
+    #define LE_ASSERT(x, ...)
+    #define LE_CORE_ASSERT(x, ...)
 #endif
 
 #define BIT(x) (1 << x)

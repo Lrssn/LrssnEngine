@@ -60,7 +60,7 @@
     <ClInclude Include="src\LrssnEngine\Core\Application.h">
       <Filter>src\LrssnEngine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\LrssnEngine\Core\Core.h">
+    <ClInclude Include="src\LrssnEngine\Core\Base.h">
       <Filter>src\LrssnEngine\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\LrssnEngine\Core\Entrypoint.h">

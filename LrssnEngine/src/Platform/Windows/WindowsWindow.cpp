@@ -36,7 +36,7 @@ namespace LrssnEngine {
 		if (s_GLFWWindowCount == 0) {
 			LE_PROFILE_SCOPE("glfwInit");
 			int success = glfwInit();
-			LE_CORE_ASSERT(success, "Could not intialize GLFW!");
+			LE_CORE_ASSERT(success, "Could not initialize GLFW!");
 
 			glfwSetErrorCallback(GLFWErrorCallback);
 		}

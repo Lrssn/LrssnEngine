@@ -1,6 +1,6 @@
 #pragma once
 
-#include "LrssnEngine/Core/Core.h"
+#include "LrssnEngine/Core/Base.h"
 #include "LrssnEngine/Core/Application.h"
 #include "LrssnEngine/Core/Layer.h"
 #include "LrssnEngine/Core/Log.h"

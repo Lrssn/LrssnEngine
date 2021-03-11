@@ -14,14 +14,14 @@ namespace LrssnEngine {
 
 		void OnUpdate() override;
 
-		inline unsigned int GetWidth() const override { return mData.Width; }
-		inline unsigned int GetHeight() const override { return mData.Height; }
+		unsigned int GetWidth() const override { return mData.Width; }
+		unsigned int GetHeight() const override { return mData.Height; }
 
 		// Window attributes
-		inline void SetEventCallback(const EventCallbackFn& callback) override { mData.EventCallback = callback; }
+		void SetEventCallback(const EventCallbackFn& callback) override { mData.EventCallback = callback; }
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
-		inline virtual void* GetNativeWindow() const { return mWindow; }
+		virtual void* GetNativeWindow() const { return mWindow; }
 	private:
 		virtual void Init(const WindowProps& props);
 		virtual void Shutdown();

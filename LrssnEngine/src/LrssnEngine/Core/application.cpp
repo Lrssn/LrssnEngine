@@ -4,7 +4,7 @@
 
 #include "LrssnEngine/Renderer/Renderer.h"
 
-#include <glfw/glfw3.h>
+#include <GLFW/glfw3.h>
 
 namespace LrssnEngine{
 
@@ -58,9 +58,9 @@ namespace LrssnEngine{
         dispatcher.Dispatch<WindowResizeEvent>(LE_BIND_EVENT_FN(Application::OnWindowResize));
 
         for (auto it = mLayerStack.rbegin(); it != mLayerStack.rend(); ++it) {
-            (*it)->OnEvent(e);
             if (e.Handled)
                 break;
+            (*it)->OnEvent(e);
         }
     }
 

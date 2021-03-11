@@ -10,8 +10,8 @@ namespace LrssnEngine {
 		MouseMovedEvent(float x, float y)
 			: mMouseX(x), mMouseY(y) {}
 
-		inline float GetX() const { return mMouseX; }
-		inline float GetY() const { return mMouseY; }
+		float GetX() const { return mMouseX; }
+		float GetY() const { return mMouseY; }
 
 		std::string ToString() const override {
 			std::stringstream ss;
@@ -30,8 +30,8 @@ namespace LrssnEngine {
 		MouseScrolledEvent(float xOffset, float yOffset)
 			: mXOffset(xOffset), mYOffset(yOffset) {}
 
-		inline float GetXOffset() const { return mXOffset; }
-		inline float GetYOffset() const { return mYOffset; }
+		float GetXOffset() const { return mXOffset; }
+		float GetYOffset() const { return mYOffset; }
 
 		std::string ToString() const override {
 			std::stringstream ss;
@@ -47,7 +47,7 @@ namespace LrssnEngine {
 
 	class MouseButtonEvent : public Event {
 	public:
-		inline MouseCode GetMouseButton() const { return mButton; }
+		MouseCode GetMouseButton() const { return mButton; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 	protected:

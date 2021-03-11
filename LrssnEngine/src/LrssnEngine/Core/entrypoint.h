@@ -1,5 +1,5 @@
 #pragma once
-#include "LrssnEngine/Core/Core.h"
+#include "LrssnEngine/Core/Base.h"
 
 #ifdef LE_PLATFORM_WINDOWS
 
