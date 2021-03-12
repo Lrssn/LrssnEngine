@@ -1,6 +1,6 @@
 workspace "LrssnEngine"
     architecture "x86_64"
-    startproject "Sandbox"
+    startproject "LrssnEngine-Editor"
     configurations{
         "Debug",
         "Release",
@@ -133,6 +133,56 @@ project "Sandbox"
         runtime "Debug"
         symbols "on"
     
+    filter "configurations:Release"
+        defines "LE_RELEASE"
+        runtime "Release"
+        optimize "on"
+
+    filter "configurations:Dist"
+        defines "LE_DIST"
+        runtime "Release"
+        optimize "on"
+
+        
+project "LrssnEngine-Editor"
+    location "LrssnEngine-Editor"
+    kind "ConsoleApp"
+    language "C++"
+    cppdialect "C++17"
+    staticruntime "on"
+
+    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+    files
+    {
+        "%{prj.name}/src/**.h",
+        "%{prj.name}/src/**.hpp",
+        "%{prj.name}/src/**.c",
+        "%{prj.name}/src/**.cpp"
+    }
+
+    includedirs
+    {
+        "LrssnEngine/vendors/spdlog/include",
+        "LrssnEngine/src",
+        "LrssnEngine/vendors",
+        "%{IncludeDir.Glm}"
+    }
+
+    links
+    {
+        "LrssnEngine"
+    }
+
+    filter "system:windows"
+        systemversion "latest"
+
+    filter "configurations:Debug"
+        defines "LE_DEBUG"
+        runtime "Debug"
+        symbols "on"
+
     filter "configurations:Release"
         defines "LE_RELEASE"
         runtime "Release"

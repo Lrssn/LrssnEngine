@@ -16,7 +16,9 @@ namespace LrssnEngine {
 		virtual void OnEvent(Event& e) override;
 		void Begin();
 		void End();
+		void BlockEvents(bool block) { mBlockEvents = block; }
 	private:
+		bool mBlockEvents = true;
 		float mTime = 0.0f;
 	};
 

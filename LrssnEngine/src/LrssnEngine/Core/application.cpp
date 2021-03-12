@@ -11,11 +11,11 @@ namespace LrssnEngine{
     Application* Application::s_mInstance = nullptr;
 
     //public functions
-    Application::Application() {
+    Application::Application(const std::string& name) {
         LE_PROFILE_FUNCTION();
         LE_CORE_ASSERT(!s_mInstance, "Application already exists!");
         s_mInstance = this;
-        mWindow = Window::Create();
+        mWindow = Window::Create(WindowProps(name));
         mWindow->SetEventCallback(LE_BIND_EVENT_FN(Application::OnEvent));
         Renderer::Init();
         mImGuiLayer = new ImGuiLayer();
@@ -50,7 +50,9 @@ namespace LrssnEngine{
             mWindow->OnUpdate();
 		}
     }
-
+    void Application::Close() 	{
+        mRunning = false;
+    }
     void Application::OnEvent(Event& e) 	{
         LE_PROFILE_FUNCTION();
         EventDispatcher dispatcher(e);

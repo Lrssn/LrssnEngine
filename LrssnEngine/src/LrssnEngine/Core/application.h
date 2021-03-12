@@ -13,9 +13,10 @@ namespace LrssnEngine{
     class Application
     {
     public:
-        Application(/* args */);
+        Application(const std::string& name);
         virtual ~Application();
-        
+        void Close();
+        ImGuiLayer* GetImGuiLayer() { return mImGuiLayer; }
         void OnEvent(Event& e);
         void PushLayer(Layer* layer);
         void PushOverlay(Layer* layer); 

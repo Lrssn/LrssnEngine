@@ -16,8 +16,13 @@ bin-int/
 
 #imgui file
 Sandbox/imgui.ini
+LrssnEngine-Editor/imgui.ini
 
 #Profiling files
 Sandbox/LrssnEngine-Profile-Startup.json
 Sandbox/LrssnEngine-Profile-Runtime.json
 Sandbox/LrssnEngine-Profile-Shutdown.json
+
+LrssnEngine-Editor/LrssnEngine-Profile-Startup.json
+LrssnEngine-Editor/LrssnEngine-Profile-Runtime.json
+LrssnEngine-Editor/LrssnEngine-Profile-Shutdown.json

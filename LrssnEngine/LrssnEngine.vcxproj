@@ -162,6 +162,7 @@
     <ClInclude Include="src\LrssnEngine\Events\MouseEvent.h" />
     <ClInclude Include="src\LrssnEngine\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\LrssnEngine\Renderer\Buffer.h" />
+    <ClInclude Include="src\LrssnEngine\Renderer\FrameBuffer.h" />
     <ClInclude Include="src\LrssnEngine\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\LrssnEngine\Renderer\OrthographicCamera.h" />
     <ClInclude Include="src\LrssnEngine\Renderer\OrthographicCameraController.h" />
@@ -175,11 +176,11 @@
     <ClInclude Include="src\Lrssnengine.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFrameBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
-    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\lepch.h" />
     <ClInclude Include="vendors\Glm\glm\common.hpp" />
@@ -599,7 +600,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\LrssnEngine\Core\Application.cpp" />
-    <ClCompile Include="src\LrssnEngine\Core\Input.cpp" />
     <ClCompile Include="src\LrssnEngine\Core\Layer.cpp" />
     <ClCompile Include="src\LrssnEngine\Core\LayerStack.cpp" />
     <ClCompile Include="src\LrssnEngine\Core\Log.cpp" />
@@ -607,6 +607,7 @@
     <ClCompile Include="src\LrssnEngine\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\LrssnEngine\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\LrssnEngine\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\LrssnEngine\Renderer\FrameBuffer.cpp" />
     <ClCompile Include="src\LrssnEngine\Renderer\GraphicsContext.cpp" />
     <ClCompile Include="src\LrssnEngine\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="src\LrssnEngine\Renderer\OrthographicCameraController.cpp" />
@@ -619,6 +620,7 @@
     <ClCompile Include="src\LrssnEngine\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLFrameBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />

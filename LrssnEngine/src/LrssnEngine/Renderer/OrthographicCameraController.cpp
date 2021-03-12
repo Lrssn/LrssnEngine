@@ -48,7 +48,7 @@ namespace LrssnEngine {
 
 		mCamera.SetPosition(mCameraPosition);
 
-		mCameraTranslationSpeed = mZoomLevel;
+		mCameraTranslationSpeed = std::min(std::max(mZoomLevel* mZoomLevel, 1.0f),20.0f);
 	}
 
 	void OrthographicCameraController::OnEvent(Event& e) 	{
@@ -57,7 +57,10 @@ namespace LrssnEngine {
 		dispatcher.Dispatch<MouseScrolledEvent>(LE_BIND_EVENT_FN(OrthographicCameraController::OnMouseScrolled));
 		dispatcher.Dispatch<WindowResizeEvent>(LE_BIND_EVENT_FN(OrthographicCameraController::OnWindowResized));
 	}
-
+	void OrthographicCameraController::OnResize(float width, float height) 	{
+		mAspectRatio = width / height;
+		mCamera.SetProjection(-mAspectRatio * mZoomLevel, mAspectRatio * mZoomLevel, -mZoomLevel, mZoomLevel);
+	}
 	bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& e) 	{
 		LE_PROFILE_FUNCTION();
 		mZoomLevel -= e.GetYOffset() * 0.25f;
@@ -68,8 +71,7 @@ namespace LrssnEngine {
 
 	bool OrthographicCameraController::OnWindowResized(WindowResizeEvent& e) 	{
 		LE_PROFILE_FUNCTION();
-		mAspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
-		mCamera.SetProjection(-mAspectRatio * mZoomLevel, mAspectRatio * mZoomLevel, -mZoomLevel, mZoomLevel);
+		OnResize((float)e.GetWidth(), (float)e.GetHeight());
 		return false;
 	}
 

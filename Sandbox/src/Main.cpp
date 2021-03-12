@@ -7,7 +7,7 @@
 
 class Sandbox : public LrssnEngine::Application{
 public:
-	Sandbox(){
+	Sandbox() : Application("Sandbox") {
 		PushLayer(new Sandbox2D());
 	};
 	~Sandbox(){};

@@ -17,6 +17,7 @@
 #include "LrssnEngine/Renderer/RenderCommand.h"
 
 #include "LrssnEngine/Renderer/Buffer.h"
+#include "LrssnEngine/Renderer/Framebuffer.h"
 #include "LrssnEngine/Renderer/Shader.h"
 #include "LrssnEngine/Renderer/Texture.h"
 #include "LrssnEngine/Renderer/VertexArray.h"

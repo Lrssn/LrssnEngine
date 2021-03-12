@@ -26,6 +26,7 @@ void Sandbox2D::OnUpdate(LrssnEngine::Timestep ts) {
 	LrssnEngine::Renderer2D::ResetStats();
 	{
 		LE_PROFILE_SCOPE("Renderer Prep");
+
 		LrssnEngine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		LrssnEngine::RenderCommand::Clear();
 	}
@@ -56,6 +57,7 @@ void Sandbox2D::OnUpdate(LrssnEngine::Timestep ts) {
 
 void Sandbox2D::OnImGuiRender() {
 	LE_PROFILE_FUNCTION();
+	
 	ImGui::Begin("Settings");
 	auto stats = LrssnEngine::Renderer2D::GetStats();
 	ImGui::Text("Renderer2D Stats:");
@@ -63,7 +65,6 @@ void Sandbox2D::OnImGuiRender() {
 	ImGui::Text("Quads: %d", stats.QuadCount);
 	ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
 	ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
-
 	ImGui::ColorEdit4("Square Color", glm::value_ptr(mSquareColor));
 	ImGui::End();
 }
