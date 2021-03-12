@@ -21,6 +21,7 @@ IncludeDir["Glad"] = "LrssnEngine/vendors/Glad/include"
 IncludeDir["ImGui"] = "LrssnEngine/vendors/ImGui"
 IncludeDir["Glm"] = "LrssnEngine/vendors/Glm"
 IncludeDir["stb_image"] = "LrssnEngine/vendors/stb_image"
+IncludeDir["entt"] = "LrssnEngine/vendors/entt/single_include/entt"
 
 group "Dependencies"
     include "LrssnEngine/vendors/GLFW"
@@ -64,7 +65,8 @@ project "LrssnEngine"
         "%{IncludeDir.Glad}",
         "%{IncludeDir.ImGui}",
         "%{IncludeDir.Glm}",
-        "%{IncludeDir.stb_image}"
+        "%{IncludeDir.stb_image}",
+        "%{IncludeDir.entt}"
     }
 
     links 
@@ -117,7 +119,8 @@ project "Sandbox"
         "%{IncludeDir.Spdlog}",
         "LrssnEngine/src",
         "LrssnEngine/vendors",
-        "%{IncludeDir.Glm}"
+        "%{IncludeDir.Glm}",
+        "%{IncludeDir.entt}"
     }
 
     links{
@@ -167,7 +170,8 @@ project "LrssnEngine-Editor"
         "LrssnEngine/vendors/spdlog/include",
         "LrssnEngine/src",
         "LrssnEngine/vendors",
-        "%{IncludeDir.Glm}"
+        "%{IncludeDir.Glm}",
+        "%{IncludeDir.entt}"
     }
 
     links

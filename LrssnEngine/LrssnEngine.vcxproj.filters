@@ -22,6 +22,9 @@
     <Filter Include="src\LrssnEngine\Renderer">
       <UniqueIdentifier>{2AF60B0F-161B-5B8F-3F66-401F2BEA59AD}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\LrssnEngine\Scene">
+      <UniqueIdentifier>{218EDE23-8DFA-991E-56EE-317CC219BC86}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Platform">
       <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
     </Filter>
@@ -143,6 +146,12 @@
     </ClInclude>
     <ClInclude Include="src\LrssnEngine\Renderer\VertexArray.h">
       <Filter>src\LrssnEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LrssnEngine\Scene\Components.h">
+      <Filter>src\LrssnEngine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LrssnEngine\Scene\Scene.h">
+      <Filter>src\LrssnEngine\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Lrssnengine.h">
       <Filter>src</Filter>
@@ -1416,6 +1425,7 @@
     <ClInclude Include="vendors\stb_image\stb_image.h">
       <Filter>vendors\stb_image</Filter>
     </ClInclude>
+    <ClInclude Include="src\LrssnEngine\Scene\Entity.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\LrssnEngine\Core\Application.cpp">
@@ -1475,6 +1485,9 @@
     <ClCompile Include="src\LrssnEngine\Renderer\VertexArray.cpp">
       <Filter>src\LrssnEngine\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\LrssnEngine\Scene\Scene.cpp">
+      <Filter>src\LrssnEngine\Scene</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
@@ -1508,5 +1521,6 @@
     <ClCompile Include="vendors\stb_image\stb_image.cpp">
       <Filter>vendors\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="src\LrssnEngine\Scene\Entity.cpp" />
   </ItemGroup>
 </Project>

@@ -23,6 +23,10 @@ namespace  LrssnEngine {
 		Ref<VertexArray> mSquareVA;
 		Ref<Shader> mFlatColorShader;
 		Ref<Framebuffer> mFramebuffer;
+
+		Ref<Scene> mActiveScene;
+		Entity mSquareEntity;
+
 		Ref<Texture2D> mTex;
 		bool mViewportFocused = false, mViewportHovered = false;
 		glm::vec2 mViewportSize = { 0.0f, 0.0f };

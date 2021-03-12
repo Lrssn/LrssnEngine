@@ -55,7 +55,7 @@
 #else
     #define LE_DEBUGBREAK()
 #endif
-
+// TODO: Make this macro able to take in no arguments except condition
 #ifdef LE_ENABLE_ASSERTS
     #define LE_ASSERT(x, ...) { if(!(x)) { LE_ERROR("Assertion Failed: {0}", __VA_ARGS__); LE_DEBUGBREAK(); } }
     #define LE_CORE_ASSERT(x, ...) { if(!(x)) { LE_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); LE_DEBUGBREAK(); } }

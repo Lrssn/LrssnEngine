@@ -79,7 +79,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>LE_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\LrssnEngine\vendors\spdlog\include;..\LrssnEngine\src;..\LrssnEngine\vendors;..\LrssnEngine\vendors\Glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\LrssnEngine\vendors\spdlog\include;..\LrssnEngine\src;..\LrssnEngine\vendors;..\LrssnEngine\vendors\Glm;..\LrssnEngine\vendors\entt\single_include\entt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -97,7 +97,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>LE_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\LrssnEngine\vendors\spdlog\include;..\LrssnEngine\src;..\LrssnEngine\vendors;..\LrssnEngine\vendors\Glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\LrssnEngine\vendors\spdlog\include;..\LrssnEngine\src;..\LrssnEngine\vendors;..\LrssnEngine\vendors\Glm;..\LrssnEngine\vendors\entt\single_include\entt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -118,7 +118,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>LE_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\LrssnEngine\vendors\spdlog\include;..\LrssnEngine\src;..\LrssnEngine\vendors;..\LrssnEngine\vendors\Glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\LrssnEngine\vendors\spdlog\include;..\LrssnEngine\src;..\LrssnEngine\vendors;..\LrssnEngine\vendors\Glm;..\LrssnEngine\vendors\entt\single_include\entt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>

@@ -7,30 +7,38 @@
 namespace LrssnEngine {
 
 	EditorLayer::EditorLayer()
-		: Layer("EditorLayer"), mCameraController(1280.0f / 720.0f), mSquareColor({ 0.2f, 0.3f, 0.8f, 1.0f }) 	{
+		: Layer("EditorLayer"), mCameraController(1280.0f / 720.0f), mSquareColor({ 0.2f, 0.3f, 0.8f, 1.0f }) {
 	}
 
-	void EditorLayer::OnAttach() 	{
+	void EditorLayer::OnAttach() {
 		LE_PROFILE_FUNCTION();
 
-		mTex = LrssnEngine::Texture2D::Create("assets/textures/a.png");
+		mTex = Texture2D::Create("assets/textures/a.png");
 
-		LrssnEngine::FramebufferSpecification fbSpec;
+		FramebufferSpecification fbSpec;
 		fbSpec.Width = 1280;
 		fbSpec.Height = 720;
-		mFramebuffer = LrssnEngine::Framebuffer::Create(fbSpec);
+		mFramebuffer = Framebuffer::Create(fbSpec);
+
+		mActiveScene = CreateRef<Scene>();
+		
+		// Entity
+		auto square = mActiveScene->CreateEntity("Green Square");
+		square.AddComponent<SpriteRendererComponent>(glm::vec4{ 0.0f, 1.0f, 0.0f, 1.0f });
+
+		mSquareEntity = square;
 	}
 
-	void EditorLayer::OnDetach() 	{
+	void EditorLayer::OnDetach() {
 		LE_PROFILE_FUNCTION();
 	}
 
-	void EditorLayer::OnUpdate(LrssnEngine::Timestep ts) 	{
+	void EditorLayer::OnUpdate(Timestep ts) {
 		LE_PROFILE_FUNCTION();
 		// Resize
-		if (LrssnEngine::FramebufferSpecification spec = mFramebuffer->GetSpecification();
+		if (FramebufferSpecification spec = mFramebuffer->GetSpecification();
 			mViewportSize.x > 0.0f && mViewportSize.y > 0.0f && // zero sized framebuffer is invalid
-			(spec.Width != mViewportSize.x || spec.Height != mViewportSize.y)) 		{
+			(spec.Width != mViewportSize.x || spec.Height != mViewportSize.y)) {
 			mFramebuffer->Resize((uint32_t)mViewportSize.x, (uint32_t)mViewportSize.y);
 			mCameraController.OnResize(mViewportSize.x, mViewportSize.y);
 		}
@@ -39,40 +47,22 @@ namespace LrssnEngine {
 			mCameraController.OnUpdate(ts);
 
 		// Render
-		LrssnEngine::Renderer2D::ResetStats();
-		{
-			LE_PROFILE_SCOPE("Renderer Prep");
-			mFramebuffer->Bind();
-			LrssnEngine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
-			LrssnEngine::RenderCommand::Clear();
-		}
+		Renderer2D::ResetStats();
+		mFramebuffer->Bind();
+		RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+		RenderCommand::Clear();
 
-		{
-			static float rotation = 0.0f;
-			rotation += ts * 50.0f;
+		Renderer2D::BeginScene(mCameraController.GetCamera());
 
-			LE_PROFILE_SCOPE("Renderer Draw");
-			LrssnEngine::Renderer2D::BeginScene(mCameraController.GetCamera());
-			LrssnEngine::Renderer2D::DrawRotatedQuad({ 1.0f, 0.0f }, { 0.8f, 0.8f }, -45.0f, { 0.8f, 0.2f, 0.3f, 1.0f });
-			LrssnEngine::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, { 0.8f, 0.2f, 0.3f, 1.0f });
-			LrssnEngine::Renderer2D::DrawQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, mSquareColor);
-			LrssnEngine::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 20.0f, 20.0f }, mTex, 10.0f);
-			LrssnEngine::Renderer2D::DrawRotatedQuad({ -2.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, rotation, mTex, 20.0f);
-			LrssnEngine::Renderer2D::EndScene();
+		// Update scene
+		mActiveScene->OnUpdate(ts);
 
-			LrssnEngine::Renderer2D::BeginScene(mCameraController.GetCamera());
-			for (float y = -5.0f; y < 5.0f; y += 0.5f) 			{
-				for (float x = -5.0f; x < 5.0f; x += 0.5f) 				{
-					glm::vec4 color = { (x + 5.0f) / 10.0f, 0.4f, (y + 5.0f) / 10.0f, 0.7f };
-					LrssnEngine::Renderer2D::DrawQuad({ x, y }, { 0.45f, 0.45f }, color);
-				}
-			}
-			LrssnEngine::Renderer2D::EndScene();
-			mFramebuffer->Unbind();
-		}
+		Renderer2D::EndScene();
+
+		mFramebuffer->Unbind();
 	}
 
-	void EditorLayer::OnImGuiRender() 	{
+	void EditorLayer::OnImGuiRender() {
 		LE_PROFILE_FUNCTION();
 
 		// Note: Switch this to true to enable dockspace
@@ -84,7 +74,7 @@ namespace LrssnEngine {
 		// We are using the ImGuiWindowFlags_NoDocking flag to make the parent window not dockable into,
 		// because it would be confusing to have two docking targets within each others.
 		ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
-		if (opt_fullscreen) 		{
+		if (opt_fullscreen) {
 			ImGuiViewport* viewport = ImGui::GetMainViewport();
 			ImGui::SetNextWindowPos(viewport->Pos);
 			ImGui::SetNextWindowSize(viewport->Size);
@@ -113,18 +103,18 @@ namespace LrssnEngine {
 
 		// DockSpace
 		ImGuiIO& io = ImGui::GetIO();
-		if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable) 		{
+		if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable) {
 			ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
 			ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
 		}
 
-		if (ImGui::BeginMenuBar()) 		{
-			if (ImGui::BeginMenu("File")) 			{
+		if (ImGui::BeginMenuBar()) {
+			if (ImGui::BeginMenu("File")) {
 				// Disabling fullscreen would allow the window to be moved to the front of other windows, 
 				// which we can't undo at the moment without finer window depth/z control.
 				//ImGui::MenuItem("Fullscreen", NULL, &opt_fullscreen_persistant);
 
-				if (ImGui::MenuItem("Exit")) LrssnEngine::Application::Get().Close();
+				if (ImGui::MenuItem("Exit")) Application::Get().Close();
 				ImGui::EndMenu();
 			}
 
@@ -133,14 +123,22 @@ namespace LrssnEngine {
 
 		ImGui::Begin("Settings");
 
-		auto stats = LrssnEngine::Renderer2D::GetStats();
+		auto stats = Renderer2D::GetStats();
 		ImGui::Text("Renderer2D Stats:");
 		ImGui::Text("Draw Calls: %d", stats.DrawCalls);
 		ImGui::Text("Quads: %d", stats.QuadCount);
 		ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
 		ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 
-		ImGui::ColorEdit4("Square Color", glm::value_ptr(mSquareColor));
+		if (mSquareEntity) 		{
+			ImGui::Separator();
+			auto& tag = mSquareEntity.GetComponent<TagComponent>().Tag;
+			ImGui::Text("%s", tag.c_str());
+
+			auto& squareColor = mSquareEntity.GetComponent<SpriteRendererComponent>().Color;
+			ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
+			ImGui::Separator();
+		}
 
 		ImGui::End();
 
@@ -152,12 +150,7 @@ namespace LrssnEngine {
 		Application::Get().GetImGuiLayer()->BlockEvents(!mViewportFocused || !mViewportHovered);
 
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-		if (mViewportSize != *((glm::vec2*)&viewportPanelSize)) 		{
-			mFramebuffer->Resize((uint32_t)viewportPanelSize.x, (uint32_t)viewportPanelSize.y);
-			mViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
-
-			mCameraController.OnResize(viewportPanelSize.x, viewportPanelSize.y);
-		}
+		mViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
 		uint32_t textureID = mFramebuffer->GetColorAttachmentRendererID();
 		ImGui::Image((void*)textureID, ImVec2{ mViewportSize.x, mViewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 		ImGui::End();
@@ -166,7 +159,7 @@ namespace LrssnEngine {
 		ImGui::End();
 	}
 
-	void EditorLayer::OnEvent(LrssnEngine::Event& e) 	{
+	void EditorLayer::OnEvent(Event& e) {
 		mCameraController.OnEvent(e);
 	}
 
