@@ -27,6 +27,45 @@ namespace LrssnEngine {
 		square.AddComponent<SpriteRendererComponent>(glm::vec4{ 0.0f, 1.0f, 0.0f, 1.0f });
 
 		mSquareEntity = square;
+		mCameraEntity = mActiveScene->CreateEntity("Camera A");
+		mCameraEntity.AddComponent<CameraComponent>();
+
+		auto redSquare = mActiveScene->CreateEntity("Red Square");
+		redSquare.AddComponent<SpriteRendererComponent>(glm::vec4{ 1.0f, 0.0f, 0.0f, 1.0f });
+
+		mSecondCamera = mActiveScene->CreateEntity("Camera B");
+		auto& cc = mSecondCamera.AddComponent<CameraComponent>();
+		cc.Primary = false;
+
+		class CameraController : public ScriptableEntity {
+		public:
+			virtual void OnCreate() override {
+				auto& translation = GetComponent<TransformComponent>().Translation;
+				translation.x = rand() % 10 - 5.0f;
+			}
+
+			virtual void OnDestroy() override {
+			}
+
+			virtual void OnUpdate(Timestep ts) override {
+				auto& translation = GetComponent<TransformComponent>().Translation;
+				float speed = 5.0f;
+
+				if (Input::IsKeyPressed(Key::A))
+					translation.x -= speed * ts;
+				if (Input::IsKeyPressed(Key::D))
+					translation.x += speed * ts;
+				if (Input::IsKeyPressed(Key::W))
+					translation.y += speed * ts;
+				if (Input::IsKeyPressed(Key::S))
+					translation.y -= speed * ts;
+			}
+		};
+
+		mCameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
+		mSecondCamera.AddComponent<NativeScriptComponent>().Bind<CameraController>();
+
+		mSceneHierarchyPanel.SetContext(mActiveScene);
 	}
 
 	void EditorLayer::OnDetach() {
@@ -41,6 +80,7 @@ namespace LrssnEngine {
 			(spec.Width != mViewportSize.x || spec.Height != mViewportSize.y)) {
 			mFramebuffer->Resize((uint32_t)mViewportSize.x, (uint32_t)mViewportSize.y);
 			mCameraController.OnResize(mViewportSize.x, mViewportSize.y);
+			mActiveScene->OnViewportResize((uint32_t)mViewportSize.x, (uint32_t)mViewportSize.y);
 		}
 		// Update
 		if (mViewportFocused)
@@ -52,12 +92,8 @@ namespace LrssnEngine {
 		RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		RenderCommand::Clear();
 
-		Renderer2D::BeginScene(mCameraController.GetCamera());
-
 		// Update scene
 		mActiveScene->OnUpdate(ts);
-
-		Renderer2D::EndScene();
 
 		mFramebuffer->Unbind();
 	}
@@ -103,10 +139,15 @@ namespace LrssnEngine {
 
 		// DockSpace
 		ImGuiIO& io = ImGui::GetIO();
+		ImGuiStyle& style = ImGui::GetStyle();
+		float minWinSizeX = style.WindowMinSize.x;
+		style.WindowMinSize.x = 370.0f;
+		
 		if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable) {
 			ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
 			ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
 		}
+		style.WindowMinSize.x = minWinSizeX;
 
 		if (ImGui::BeginMenuBar()) {
 			if (ImGui::BeginMenu("File")) {
@@ -120,8 +161,8 @@ namespace LrssnEngine {
 
 			ImGui::EndMenuBar();
 		}
-
-		ImGui::Begin("Settings");
+		mSceneHierarchyPanel.OnImGuiRender();
+		ImGui::Begin("Stats");
 
 		auto stats = Renderer2D::GetStats();
 		ImGui::Text("Renderer2D Stats:");
@@ -129,16 +170,6 @@ namespace LrssnEngine {
 		ImGui::Text("Quads: %d", stats.QuadCount);
 		ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
 		ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
-
-		if (mSquareEntity) 		{
-			ImGui::Separator();
-			auto& tag = mSquareEntity.GetComponent<TagComponent>().Tag;
-			ImGui::Text("%s", tag.c_str());
-
-			auto& squareColor = mSquareEntity.GetComponent<SpriteRendererComponent>().Color;
-			ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
-			ImGui::Separator();
-		}
 
 		ImGui::End();
 
@@ -151,8 +182,8 @@ namespace LrssnEngine {
 
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 		mViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
-		uint32_t textureID = mFramebuffer->GetColorAttachmentRendererID();
-		ImGui::Image((void*)textureID, ImVec2{ mViewportSize.x, mViewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+		uint64_t textureID = mFramebuffer->GetColorAttachmentRendererID();
+		ImGui::Image(reinterpret_cast<void*>(textureID), ImVec2{ mViewportSize.x, mViewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 		ImGui::End();
 		ImGui::PopStyleVar();
 

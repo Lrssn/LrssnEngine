@@ -1,10 +1,13 @@
 #pragma once
 #include "LrssnEngine/Core/Base.h"
+
+// This ignores all warnings raised inside External headers
+#pragma warning(push, 0)
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/ostr.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/sinks/basic_file_sink.h>
-
+#pragma warning(pop)
 
 namespace LrssnEngine{
     class Log{
@@ -31,5 +34,5 @@ namespace LrssnEngine{
 #define LE_TRACE(...)       ::LrssnEngine::Log::GetClientLogger()->trace(__VA_ARGS__)
 #define LE_INFO(...)        ::LrssnEngine::Log::GetClientLogger()->info(__VA_ARGS__)
 #define LE_WARN(...)        ::LrssnEngine::Log::GetClientLogger()->warn(__VA_ARGS__)
-#define LE_ERROR(...)       ::LrssnEngine::Log::GetlienteLogger()->error(__VA_ARGS__)
-#define LE_CRITICAL(...)       ::LrssnEngine::Log::GetlienteLogger()->critical(__VA_ARGS__)
+#define LE_ERROR(...)       ::LrssnEngine::Log::GetClientLogger()->error(__VA_ARGS__)
+#define LE_CRITICAL(...)       ::LrssnEngine::Log::GetClientLogger()->critical(__VA_ARGS__)

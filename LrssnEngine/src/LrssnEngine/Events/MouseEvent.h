@@ -1,13 +1,13 @@
 #pragma once
 #include "LrssnEngine/Events/Event.h"
-#include "LrssnEngine/Core/Input.h"
+#include "LrssnEngine/Core/MouseCodes.h"
 
 
 namespace LrssnEngine {
 
 	class MouseMovedEvent : public Event {
 	public:
-		MouseMovedEvent(float x, float y)
+		MouseMovedEvent(const float x, const float y)
 			: mMouseX(x), mMouseY(y) {}
 
 		float GetX() const { return mMouseX; }
@@ -27,7 +27,7 @@ namespace LrssnEngine {
 
 	class MouseScrolledEvent : public Event {
 	public:
-		MouseScrolledEvent(float xOffset, float yOffset)
+		MouseScrolledEvent(const float xOffset, const float yOffset)
 			: mXOffset(xOffset), mYOffset(yOffset) {}
 
 		float GetXOffset() const { return mXOffset; }
@@ -49,7 +49,7 @@ namespace LrssnEngine {
 	public:
 		MouseCode GetMouseButton() const { return mButton; }
 
-		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
+		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput | EventCategoryMouseButton )
 	protected:
 		MouseButtonEvent(MouseCode button)
 			: mButton(button) {}
@@ -59,7 +59,7 @@ namespace LrssnEngine {
 
 	class MouseButtonPressedEvent : public MouseButtonEvent {
 	public:
-		MouseButtonPressedEvent(MouseCode button)
+		MouseButtonPressedEvent(const MouseCode button)
 			: MouseButtonEvent(button) {}
 
 		std::string ToString() const override {
@@ -73,7 +73,7 @@ namespace LrssnEngine {
 
 	class MouseButtonReleasedEvent : public MouseButtonEvent {
 	public:
-		MouseButtonReleasedEvent(MouseCode button)
+		MouseButtonReleasedEvent(const MouseCode button)
 			: MouseButtonEvent(button) {}
 
 		std::string ToString() const override {

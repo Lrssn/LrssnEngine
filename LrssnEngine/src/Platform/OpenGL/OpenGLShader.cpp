@@ -47,7 +47,7 @@ namespace LrssnEngine {
 	std::string OpenGLShader::ReadFile(const std::string& filepath) {
 		LE_PROFILE_FUNCTION();
 		std::string result;
-		std::ifstream in(filepath, std::ios::in | std::ios::binary);
+		std::ifstream in(filepath, std::ios::in | std::ios::binary); // ifstream closes itself due to RAII
 		if (in) {
 			in.seekg(0, std::ios::end);
 			size_t size = in.tellg();
@@ -55,7 +55,6 @@ namespace LrssnEngine {
 				result.resize(size);
 				in.seekg(0, std::ios::beg);
 				in.read(&result[0], size);
-				in.close();
 			}else{
 				LE_CORE_ERROR("Could not read from file '{0}'", filepath);
 			}

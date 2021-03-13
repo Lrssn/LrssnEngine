@@ -1,5 +1,7 @@
 #pragma once
-#include "lepch.h"
+#include <functional>
+
+#include "LrssnEngine/Debug/Instrumentor.h"
 #include "LrssnEngine/Core/Base.h"
 
 
@@ -58,7 +60,7 @@ namespace LrssnEngine {
 		template<typename T, typename F>
 		bool Dispatch(const F& func){
 			if (mEvent.GetEventType() == T::GetStaticType()){
-				mEvent.Handled = func(static_cast<T&>(mEvent));
+				mEvent.Handled |= func(static_cast<T&>(mEvent));
 				return true;
 			}
 			return false;

@@ -4,8 +4,14 @@
 #include <chrono>
 #include <fstream>
 #include <iomanip>
+#include <mutex>
+#include <sstream>
 #include <string>
 #include <thread>
+
+#include "LrssnEngine/Core/Base.h"
+#include "LrssnEngine/Core/Log.h"
+
 
 namespace LrssnEngine {
 	using FloatingPointMicroseconds = std::chrono::duration<double, std::micro>;
@@ -21,14 +27,10 @@ namespace LrssnEngine {
 	};
 
 	class Instrumentor 	{
-	private:
-		std::mutex mMutex;
-		InstrumentationSession* mCurrentSession;
-		std::ofstream mOutputStream;
+
 	public:
-		Instrumentor()
-			: mCurrentSession(nullptr) {
-		}
+		Instrumentor(const Instrumentor&) = delete;
+		Instrumentor(Instrumentor&&) = delete;
 
 		void BeginSession(const std::string& name, const std::string& filepath = "results.json") {
 			std::lock_guard lock(mMutex);
@@ -82,6 +84,13 @@ namespace LrssnEngine {
 			return instance;
 		}
 	private:
+		Instrumentor()
+			: mCurrentSession(nullptr) 		{
+		}
+
+		~Instrumentor() 		{
+			EndSession();
+		}
 		void WriteHeader() {
 			mOutputStream << "{\"otherData\": {},\"traceEvents\":[{}";
 			mOutputStream.flush();
@@ -101,6 +110,10 @@ namespace LrssnEngine {
 				mCurrentSession = nullptr;
 			}
 		}
+	
+		std::mutex mMutex;
+		InstrumentationSession* mCurrentSession;
+		std::ofstream mOutputStream;
 	};
 
 	class InstrumentationTimer {
@@ -120,7 +133,7 @@ namespace LrssnEngine {
 			auto highResStart = FloatingPointMicroseconds{ mStartTimepoint.time_since_epoch() };
 			auto elapsedTime = std::chrono::time_point_cast<std::chrono::microseconds>(endTimepoint).time_since_epoch() - std::chrono::time_point_cast<std::chrono::microseconds>(mStartTimepoint).time_since_epoch();
 
-			uint32_t threadID = std::hash<std::thread::id>{}(std::this_thread::get_id());
+			uint32_t threadID = (uint32_t)(std::hash<std::thread::id>{}(std::this_thread::get_id()));
 			Instrumentor::Get().WriteProfile({ mName, highResStart, elapsedTime, std::this_thread::get_id() });
 
 			mStopped = true;
@@ -182,8 +195,10 @@ namespace LrssnEngine {
 
 	#define LE_PROFILE_BEGIN_SESSION(name, filepath) ::LrssnEngine::Instrumentor::Get().BeginSession(name, filepath)
 	#define LE_PROFILE_END_SESSION() ::LrssnEngine::Instrumentor::Get().EndSession()
-	#define LE_PROFILE_SCOPE(name) constexpr auto fixedName = ::LrssnEngine::InstrumentorUtils::CleanupOutputString(name, "__cdecl ");\
-									::LrssnEngine::InstrumentationTimer timer##__LINE__(fixedName.Data)
+	#define LE_PROFILE_SCOPE_LINE2(name, line) constexpr auto fixedName##line = ::LrssnEngine::InstrumentorUtils::CleanupOutputString(name, "__cdecl ");\
+											   ::LrssnEngine::InstrumentationTimer timer##line(fixedName##line.Data)
+	#define LE_PROFILE_SCOPE_LINE(name, line) LE_PROFILE_SCOPE_LINE2(name, line)
+	#define LE_PROFILE_SCOPE(name) LE_PROFILE_SCOPE_LINE(name, __LINE__)
 	#define LE_PROFILE_FUNCTION() LE_PROFILE_SCOPE(LE_FUNC_SIG)
 #else
 	#define LE_PROFILE_BEGIN_SESSION(name, filepath)

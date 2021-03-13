@@ -1,5 +1,5 @@
 #pragma once
-
+#include "LrssnEngine/Core/Base.h"
 namespace LrssnEngine {
 
 	enum class ShaderDataType{
@@ -7,7 +7,7 @@ namespace LrssnEngine {
 	};
 
 	static uint32_t ShaderDataTypeSize(ShaderDataType type){
-		switch (type) 		{
+		switch (type) {
 		case ShaderDataType::Float:		return 4;
 		case ShaderDataType::Float2:	return 4 * 2;
 		case ShaderDataType::Float3:	return 4 * 3;
@@ -62,8 +62,8 @@ namespace LrssnEngine {
 	public:
 		BufferLayout() {}
 
-		BufferLayout(const std::initializer_list<BufferElement>& elements)
-			: mElements(elements) 		{
+		BufferLayout(std::initializer_list<BufferElement> elements)
+			: mElements(elements) {
 			CalculateOffsetsAndStride();
 		}
 
@@ -75,10 +75,10 @@ namespace LrssnEngine {
 		std::vector<BufferElement>::const_iterator begin() const { return mElements.begin(); }
 		std::vector<BufferElement>::const_iterator end() const { return mElements.end(); }
 	private:
-		void CalculateOffsetsAndStride() 		{
+		void CalculateOffsetsAndStride() {
 			size_t offset = 0;
 			mStride = 0;
-			for (auto& element : mElements) 			{
+			for (auto& element : mElements) {
 				element.Offset = offset;
 				offset += element.Size;
 				mStride += element.Size;
@@ -89,7 +89,7 @@ namespace LrssnEngine {
 		uint32_t mStride = 0;
 	};
 
-	class VertexBuffer 	{
+	class VertexBuffer {
 	public:
 		virtual ~VertexBuffer() {}
 
@@ -102,7 +102,7 @@ namespace LrssnEngine {
 		static Ref<VertexBuffer> Create(float* vertices, uint32_t size);
 	};
 
-	class IndexBuffer 	{
+	class IndexBuffer {
 	public:
 		virtual ~IndexBuffer() {}
 

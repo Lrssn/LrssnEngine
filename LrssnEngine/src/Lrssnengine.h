@@ -2,6 +2,7 @@
 
 // ---Core----------------------------
 #include "LrssnEngine/Core/Base.h"
+#include "LrssnEngine/Core/Assert.h"
 #include "LrssnEngine/Core/Application.h"
 #include "LrssnEngine/Core/Layer.h"
 #include "LrssnEngine/Core/Log.h"
@@ -31,6 +32,7 @@
 #include "LrssnEngine/Scene/Scene.h"
 #include "LrssnEngine/Scene/Entity.h"
 #include "LrssnEngine/Scene/Components.h"
+#include "LrssnEngine/Scene/ScriptableEntity.h"
 // -----------------------------------
 
 

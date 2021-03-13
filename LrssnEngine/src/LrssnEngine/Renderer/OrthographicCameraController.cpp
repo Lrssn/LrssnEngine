@@ -12,29 +12,29 @@ namespace LrssnEngine {
 
 	void OrthographicCameraController::OnUpdate(Timestep ts) 	{
 		LE_PROFILE_FUNCTION();
-		if (Input::IsKeyPressed(LE_KEY_A))		{
+		if (Input::IsKeyPressed(Key::A))		{
 			mCameraPosition.x -= cos(glm::radians(mCameraRotation)) * mCameraTranslationSpeed * ts;
 			mCameraPosition.y -= sin(glm::radians(mCameraRotation)) * mCameraTranslationSpeed * ts;
 		}
-		else if (Input::IsKeyPressed(LE_KEY_D)) {
+		else if (Input::IsKeyPressed(Key::D)) {
 			mCameraPosition.x += cos(glm::radians(mCameraRotation)) * mCameraTranslationSpeed * ts;
 			mCameraPosition.y += sin(glm::radians(mCameraRotation)) * mCameraTranslationSpeed * ts;
 		}
-		if (Input::IsKeyPressed(LE_KEY_W))
+		if (Input::IsKeyPressed(Key::W))
 		{
 			mCameraPosition.x += -sin(glm::radians(mCameraRotation)) * mCameraTranslationSpeed * ts;
 			mCameraPosition.y += cos(glm::radians(mCameraRotation)) * mCameraTranslationSpeed * ts;
 		}
-		else if (Input::IsKeyPressed(LE_KEY_S))
+		else if (Input::IsKeyPressed(Key::S))
 		{
 			mCameraPosition.x -= -sin(glm::radians(mCameraRotation)) * mCameraTranslationSpeed * ts;
 			mCameraPosition.y -= cos(glm::radians(mCameraRotation)) * mCameraTranslationSpeed * ts;
 		}
 
 		if (m_Rotation) 		{
-			if (Input::IsKeyPressed(LE_KEY_Q))
+			if (Input::IsKeyPressed(Key::Q))
 				mCameraRotation += mCameraRotationSpeed * ts;
-			if (Input::IsKeyPressed(LE_KEY_E))
+			if (Input::IsKeyPressed(Key::E))
 				mCameraRotation -= mCameraRotationSpeed * ts;
 
 			if (mCameraRotation > 180.0f)
