@@ -13,3 +13,9 @@
 [submodule "LrssnEngine/vendors/entt"]
 	path = LrssnEngine/vendors/entt
 	url = https://github.com/skypjack/entt.git
+[submodule "LrssnEngine/vendors/yaml-cpp"]
+	path = LrssnEngine/vendors/yaml-cpp
+	url = https://github.com/jbeder/yaml-cpp.git
+[submodule "LrssnEngine/vendors/ImGuizmo"]
+	path = LrssnEngine/vendors/ImGuizmo
+	url = https://github.com/CedricGuillemet/ImGuizmo.git

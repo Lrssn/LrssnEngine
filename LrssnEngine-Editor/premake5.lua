@@ -21,7 +21,8 @@ project "LrssnEngine-Editor"
 		"%{wks.location}/LrssnEngine/src",
 		"%{wks.location}/LrssnEngine/vendors",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.entt}"
+		"%{IncludeDir.entt}",
+		"%{IncludeDir.ImGuizmo}"
 	}
 
 	links

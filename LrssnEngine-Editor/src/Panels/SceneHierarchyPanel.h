@@ -15,6 +15,8 @@ namespace LrssnEngine {
 		void SetContext(const Ref<Scene>& scene);
 
 		void OnImGuiRender();
+		Entity GetSelectedEntity() const { return mSelectionContext; }
+		void GetSelectedEntity(Entity entity);
 	private:
 		void DrawEntityNode(Entity entity);
 		void DrawComponents(Entity entity);

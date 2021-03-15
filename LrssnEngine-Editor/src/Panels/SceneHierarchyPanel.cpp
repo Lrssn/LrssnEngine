@@ -1,5 +1,12 @@
 #include "SceneHierarchyPanel.h"
 
+#include <cstring>
+/* The Microsoft C++ compiler is non-compliant with the C++ standard and needs
+ * the following definition to disable a security warning on std::strncpy().
+ */
+#ifdef _MSVC_LANG
+	#define _CRT_SECURE_NO_WARNINGS
+#endif
 #include <imgui/imgui.h>
 #include <imgui/imgui_internal.h>
 
@@ -15,6 +22,7 @@ namespace LrssnEngine {
 
 	void SceneHierarchyPanel::SetContext(const Ref<Scene>& context) {
 		mContext = context;
+		mSelectionContext = {};
 	}
 
 	void SceneHierarchyPanel::OnImGuiRender() {
@@ -45,7 +53,9 @@ namespace LrssnEngine {
 
 		ImGui::End();
 	}
-
+	void SceneHierarchyPanel::GetSelectedEntity(Entity entity) {
+		mSelectionContext = entity;
+	}
 	void SceneHierarchyPanel::DrawEntityNode(Entity entity) {
 		auto& tag = entity.GetComponent<TagComponent>().Tag;
 
@@ -155,8 +165,7 @@ namespace LrssnEngine {
 			float lineHeight = GImGui->Font->FontSize + GImGui->Style.FramePadding.y * 2.0f;
 			ImGui::Separator();
 			bool open = ImGui::TreeNodeEx((void*)typeid(T).hash_code(), treeNodeFlags, name.c_str());
-			ImGui::PopStyleVar(
-			);
+			ImGui::PopStyleVar();
 			ImGui::SameLine(contentRegionAvailable.x - lineHeight * 0.5f);
 			if (ImGui::Button("+", ImVec2{ lineHeight, lineHeight })) {
 				ImGui::OpenPopup("ComponentSettings");
@@ -186,7 +195,7 @@ namespace LrssnEngine {
 
 			char buffer[256];
 			memset(buffer, 0, sizeof(buffer));
-			strcpy_s(buffer, sizeof(buffer), tag.c_str());
+			std::strncpy(buffer, tag.c_str(), sizeof(buffer));
 			if (ImGui::InputText("##Tag", buffer, sizeof(buffer))) {
 				tag = std::string(buffer);
 			}
@@ -200,12 +209,18 @@ namespace LrssnEngine {
 
 		if (ImGui::BeginPopup("AddComponent")) {
 			if (ImGui::MenuItem("Camera")) {
-				mSelectionContext.AddComponent<CameraComponent>();
+				if (!mSelectionContext.HasComponent<CameraComponent>())
+					mSelectionContext.AddComponent<CameraComponent>();
+				else
+					LE_CORE_WARN("This entity already has the Camera Component!");
 				ImGui::CloseCurrentPopup();
 			}
 
 			if (ImGui::MenuItem("Sprite Renderer")) {
-				mSelectionContext.AddComponent<SpriteRendererComponent>();
+				if (!mSelectionContext.HasComponent<SpriteRendererComponent>())
+					mSelectionContext.AddComponent<SpriteRendererComponent>();
+				else
+					LE_CORE_WARN("This entity already has the Sprite Renderer Component!");
 				ImGui::CloseCurrentPopup();
 			}
 
@@ -220,7 +235,7 @@ namespace LrssnEngine {
 			DrawVec3Control("Rotation", rotation);
 			component.Rotation = glm::radians(rotation);
 			DrawVec3Control("Scale", component.Scale, 1.0f);
-			});
+		});
 
 		DrawComponent<CameraComponent>("Camera", entity, [](auto& component) {
 			auto& camera = component.Camera;

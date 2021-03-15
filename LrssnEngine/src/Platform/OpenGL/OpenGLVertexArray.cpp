@@ -6,7 +6,7 @@
 namespace LrssnEngine {
 
 	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type) 	{
-		switch (type) 		{
+		switch (type) {
 		case ShaderDataType::Float:    return GL_FLOAT;
 		case ShaderDataType::Float2:   return GL_FLOAT;
 		case ShaderDataType::Float3:   return GL_FLOAT;
@@ -52,43 +52,52 @@ namespace LrssnEngine {
 		vertexBuffer->Bind();
 
 		const auto& layout = vertexBuffer->GetLayout();
-		for (const auto& element : layout) 		{
-			switch (element.Type) 			{
-			case ShaderDataType::Float:
-			case ShaderDataType::Float2:
-			case ShaderDataType::Float3:
-			case ShaderDataType::Float4:
-			case ShaderDataType::Int:
-			case ShaderDataType::Int2:
-			case ShaderDataType::Int3:
-			case ShaderDataType::Int4:
-			case ShaderDataType::Bool:
-			{
-				glEnableVertexAttribArray(mVertexBufferIndex);
-				glVertexAttribPointer(mVertexBufferIndex,
-					element.GetComponentCount(),
-					ShaderDataTypeToOpenGLBaseType(element.Type),
-					element.Normalized ? GL_TRUE : GL_FALSE,
-					layout.GetStride(),
-					(const void*)element.Offset);
-				mVertexBufferIndex++;
-				break;
-			}
-			case ShaderDataType::Mat3:
-			case ShaderDataType::Mat4:
-			{
-				uint8_t count = element.GetComponentCount();
-				for (uint8_t i = 0; i < count; i++) 					{
+		for (const auto& element : layout) {
+			switch (element.Type) {
+				case ShaderDataType::Float:
+				case ShaderDataType::Float2:
+				case ShaderDataType::Float3:
+				case ShaderDataType::Float4:
+				{
 					glEnableVertexAttribArray(mVertexBufferIndex);
 					glVertexAttribPointer(mVertexBufferIndex,
-						count,
+						element.GetComponentCount(),
 						ShaderDataTypeToOpenGLBaseType(element.Type),
 						element.Normalized ? GL_TRUE : GL_FALSE,
 						layout.GetStride(),
-						(const void*)(element.Offset + sizeof(float) * count * i));
-					glVertexAttribDivisor(mVertexBufferIndex, 1);
+						(const void*)element.Offset);
 					mVertexBufferIndex++;
+					break;
 				}
+				case ShaderDataType::Int:
+				case ShaderDataType::Int2:
+				case ShaderDataType::Int3:
+				case ShaderDataType::Int4:
+				case ShaderDataType::Bool:
+				{
+					glEnableVertexAttribArray(mVertexBufferIndex);
+					glVertexAttribIPointer(mVertexBufferIndex,
+						element.GetComponentCount(),
+						ShaderDataTypeToOpenGLBaseType(element.Type),
+						layout.GetStride(),
+						(const void*)element.Offset);
+					mVertexBufferIndex++;
+					break;
+				}
+				case ShaderDataType::Mat3:
+				case ShaderDataType::Mat4:
+				{
+					uint8_t count = element.GetComponentCount();
+					for (uint8_t i = 0; i < count; i++) {
+						glEnableVertexAttribArray(mVertexBufferIndex);
+						glVertexAttribIPointer(mVertexBufferIndex,
+							count,
+							ShaderDataTypeToOpenGLBaseType(element.Type),
+							layout.GetStride(),
+							(const void*)(element.Offset + sizeof(float) * count * i));
+						glVertexAttribDivisor(mVertexBufferIndex, 1);
+						mVertexBufferIndex++;
+					}
 				break;
 			}
 			default:

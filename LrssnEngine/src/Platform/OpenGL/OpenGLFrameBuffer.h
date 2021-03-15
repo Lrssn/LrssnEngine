@@ -4,7 +4,7 @@
 
 namespace LrssnEngine {
 
-	class OpenGLFramebuffer : public Framebuffer 	{
+	class OpenGLFramebuffer : public Framebuffer {
 	public:
 		OpenGLFramebuffer(const FramebufferSpecification& spec);
 		virtual ~OpenGLFramebuffer();
@@ -13,14 +13,22 @@ namespace LrssnEngine {
 
 		virtual void Bind() override;
 		virtual void Unbind() override;
-		virtual void Resize(uint32_t width, uint32_t height) override;
-		virtual uint32_t GetColorAttachmentRendererID() const override { return m_ColorAttachment; }
 
-		virtual const FramebufferSpecification& GetSpecification() const override { return m_Specification; }
+		virtual void Resize(uint32_t width, uint32_t height) override;
+		virtual int ReadPixel(uint32_t attachmentIndex, int x, int y) override;
+		virtual void ClearAttachment(uint32_t attachmentIndex, int value) override;
+		virtual uint32_t GetColorAttachmentRendererID(uint32_t index = 0) const override { LE_CORE_ASSERT(index < mColorAttachments.size()); return mColorAttachments[index]; }
+
+		virtual const FramebufferSpecification& GetSpecification() const override { return mSpecification; }
 	private:
-		uint32_t m_RendererID = 0;
-		uint32_t m_ColorAttachment = 0, m_DepthAttachment = 0;
-		FramebufferSpecification m_Specification;
+		uint32_t mRendererID = 0;
+		FramebufferSpecification mSpecification;
+
+		std::vector<FramebufferTextureSpecification> mColorAttachmentSpecifications;
+		FramebufferTextureSpecification mDepthAttachmentSpecification = FramebufferTextureFormat::None;
+
+		std::vector<uint32_t> mColorAttachments;
+		uint32_t mDepthAttachment = 0;
 	};
 
 }

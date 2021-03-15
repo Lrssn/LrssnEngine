@@ -88,13 +88,13 @@ namespace LrssnEngine {
 		return shaderSources;
 	}
 
-	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shaderSources) 	{
+	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shaderSources) {
 		LE_PROFILE_FUNCTION();
 		GLuint program = glCreateProgram();
 		LE_CORE_ASSERT(shaderSources.size() <= 2, "We only support 2 shaders for now");
 		std::array<GLenum, 2> glShaderIDs;
 		int glShaderIDIndex = 0;
-		for (auto& kv : shaderSources) 		{
+		for (auto& kv : shaderSources) {
 			GLenum type = kv.first;
 			const std::string& source = kv.second;
 
@@ -107,7 +107,7 @@ namespace LrssnEngine {
 
 			GLint isCompiled = 0;
 			glGetShaderiv(shader, GL_COMPILE_STATUS, &isCompiled);
-			if (isCompiled == GL_FALSE) 			{
+			if (isCompiled == GL_FALSE) {
 				GLint maxLength = 0;
 				glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &maxLength);
 
@@ -172,12 +172,16 @@ namespace LrssnEngine {
 		LE_PROFILE_FUNCTION();
 		UploadUniformInt(name, value);
 	}
-	void OpenGLShader::SetIntArray(const std::string& name, int* values, uint32_t count) 	{
+	void OpenGLShader::SetIntArray(const std::string& name, int* values, uint32_t count) {
 		UploadUniformIntArray(name, values, count);
 	}
 	void OpenGLShader::SetFloat(const std::string& name, float value) {
 		LE_PROFILE_FUNCTION();
 		UploadUniformFloat(name, value);
+	}
+	void OpenGLShader::SetFloat2(const std::string& name, const glm::vec2& value) {
+		LE_PROFILE_FUNCTION();
+		UploadUniformFloat2(name, value);
 	}
 	void OpenGLShader::SetFloat3(const std::string& name, const glm::vec3& value) {
 		LE_PROFILE_FUNCTION();
