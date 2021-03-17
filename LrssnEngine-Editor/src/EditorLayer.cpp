@@ -338,8 +338,11 @@ namespace LrssnEngine {
 	bool EditorLayer::OnMouseButtonPressed(MouseButtonPressedEvent& e) {
 
 		if (e.GetMouseButton() == Mouse::ButtonLeft) {
-			if(mViewportHovered && !ImGuizmo::IsOver() && !Input::IsKeyPressed(Key::LeftAlt))
-				mSceneHierarchyPanel.GetSelectedEntity(mHoveredEntity);
+			if (mViewportHovered && !ImGuizmo::IsOver()) {
+				if (!Input::IsKeyPressed(Key::LeftAlt)) {
+					mSceneHierarchyPanel.GetSelectedEntity(mHoveredEntity);
+				}
+			}
 		}
 		return false;
 	}
