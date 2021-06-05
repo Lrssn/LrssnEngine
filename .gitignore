@@ -26,3 +26,8 @@ Sandbox/LrssnEngine-Profile-Shutdown.json
 LrssnEngine-Editor/LrssnEngine-Profile-Startup.json
 LrssnEngine-Editor/LrssnEngine-Profile-Runtime.json
 LrssnEngine-Editor/LrssnEngine-Profile-Shutdown.json
+
+# Directories
+LrssnEngine/vendor/VulkanSDK
+LrssnEngine-Editor/assets/cache
+scripts/__pycache__ 
