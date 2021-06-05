@@ -6,14 +6,14 @@
 namespace LrssnEngine {
 	class Sandbox : public Application {
 	public:
-		Sandbox() : Application("Editor") {
+		Sandbox(ApplicationCommandLineArgs args) : Application("Editor", args) {
 			PushLayer(new EditorLayer());
 		};
 		~Sandbox() {};
 
 	};
 
-	Application* createApplication() {
-		return new Sandbox();
+	Application* createApplication(ApplicationCommandLineArgs args) {
+		return new Sandbox(args);
 	}
 }

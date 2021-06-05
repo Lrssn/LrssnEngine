@@ -144,6 +144,8 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLUniformBuffer.h" />
+    <ClInclude Include="src\LrssnEngine\Core\Timer.h" />
     <ClInclude Include="src\LrssnEngine\Renderer\EditorCamera.h" />
     <ClInclude Include="src\LrssnEngine\Core\Application.h" />
     <ClInclude Include="src\LrssnEngine\Core\Assert.h" />
@@ -195,6 +197,7 @@
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\lepch.h" />
+    <ClInclude Include="src\LrssnEngine\Renderer\UniformBuffer.h" />
     <ClInclude Include="vendors\ImGuizmo\ImGuizmo.h" />
     <ClInclude Include="vendors\glm\glm\common.hpp" />
     <ClInclude Include="vendors\glm\glm\detail\_features.hpp" />
@@ -612,6 +615,7 @@
     <ClInclude Include="vendors\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLUniformBuffer.cpp" />
     <ClCompile Include="src\LrssnEngine\Renderer\EditorCamera.cpp" />
     <ClCompile Include="src\LrssnEngine\Core\Application.cpp" />
     <ClCompile Include="src\LrssnEngine\Core\Layer.cpp" />
@@ -650,6 +654,7 @@
     <ClCompile Include="src\lepch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\LrssnEngine\Renderer\UniformBuffer.cpp" />
     <ClCompile Include="vendors\ImGuizmo\ImGuizmo.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>

@@ -11,7 +11,8 @@ namespace LrssnEngine{
     Application* Application::s_mInstance = nullptr;
 
     //public functions
-    Application::Application(const std::string& name) {
+    Application::Application(const std::string& name, ApplicationCommandLineArgs args)
+        : mCommandLineArgs(args) {
         LE_PROFILE_FUNCTION();
         LE_CORE_ASSERT(!s_mInstance, "Application already exists!");
         s_mInstance = this;

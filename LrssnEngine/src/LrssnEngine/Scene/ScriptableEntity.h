@@ -4,12 +4,12 @@
 
 namespace LrssnEngine {
 
-	class ScriptableEntity 	{
+	class ScriptableEntity {
 	public:
 		virtual ~ScriptableEntity() {}
 
 		template<typename T>
-		T& GetComponent() 		{
+		T& GetComponent() {
 			return mEntity.GetComponent<T>();
 		}
 	protected:
@@ -20,5 +20,4 @@ namespace LrssnEngine {
 		Entity mEntity;
 		friend class Scene;
 	};
-
 }

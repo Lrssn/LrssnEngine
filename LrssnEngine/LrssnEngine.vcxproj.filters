@@ -1465,6 +1465,9 @@
       <Filter>vendors\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="src\LrssnEngine\Renderer\EditorCamera.h" />
+    <ClInclude Include="src\LrssnEngine\Core\Timer.h" />
+    <ClInclude Include="src\LrssnEngine\Renderer\UniformBuffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLUniformBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\LrssnEngine\Core\Application.cpp">
@@ -1579,5 +1582,7 @@
       <Filter>vendors\stb_image</Filter>
     </ClCompile>
     <ClCompile Include="src\LrssnEngine\Renderer\EditorCamera.cpp" />
+    <ClCompile Include="src\LrssnEngine\Renderer\UniformBuffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLUniformBuffer.cpp" />
   </ItemGroup>
 </Project>

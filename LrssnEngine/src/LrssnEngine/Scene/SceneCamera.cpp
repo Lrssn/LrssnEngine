@@ -26,6 +26,7 @@ namespace LrssnEngine {
 
 
 	void SceneCamera::SetViewportSize(uint32_t width, uint32_t height) 	{
+		LE_CORE_ASSERT(width > 0 && height > 0);
 		mAspectRatio = (float)width / (float)height;
 		RecalculateProjection();
 	}

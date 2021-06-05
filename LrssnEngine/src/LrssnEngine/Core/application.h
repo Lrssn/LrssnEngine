@@ -9,11 +9,21 @@
 #include "LrssnEngine/ImGui/ImGuiLayer.h"
 
 int main(int argc, char** argv);
-namespace LrssnEngine{
-    class Application
-    {
+namespace LrssnEngine {
+
+    struct ApplicationCommandLineArgs {
+        int Count = 0;
+        char** Args = nullptr;
+
+        const char* operator[](int index) const {
+            HZ_CORE_ASSERT(index < Count);
+            return Args[index];
+        }
+    };
+
+    class Application {
     public:
-        Application(const std::string& name);
+        Application(const std::string& name, ApplicationCommandLineArgs args = ApplicationCommandLineArgs());
         virtual ~Application();
         void Close();
         ImGuiLayer* GetImGuiLayer() { return mImGuiLayer; }
@@ -23,10 +33,12 @@ namespace LrssnEngine{
         
         Window& GetWindow() { return *mWindow; }
         static Application& Get() { return *s_mInstance; }
+        ApplicationCommandLineArgs GetCommandLineArgs() const { return mCommandLineArgs; }
     private:
         void run();
         bool OnWindowClose(WindowCloseEvent& e);
         bool OnWindowResize(WindowResizeEvent& e);
+        ApplicationCommandLineArgs mCommandLineArgs;
         Scope<Window> mWindow;
         ImGuiLayer* mImGuiLayer;
         bool mRunning = true;
@@ -36,5 +48,6 @@ namespace LrssnEngine{
         static Application* s_mInstance;
         friend int ::main(int argc, char** argv);
     };
-    Application* createApplication();
+    // To be defined in CLIENT
+    Application* createApplication(ApplicationCommandLineArgs args);
 }

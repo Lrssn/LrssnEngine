@@ -6,14 +6,14 @@
 
 namespace LrssnEngine {
 
-	class Entity 	{
+	class Entity {
 	public:
 		Entity() = default;
 		Entity(entt::entity handle, Scene* scene);
 		Entity(const Entity& other) = default;
 
 		template<typename T, typename... Args>
-		T& AddComponent(Args&&... args) 		{
+		T& AddComponent(Args&&... args) {
 			LE_CORE_ASSERT(!HasComponent<T>(), "Entity already has component!");
 			T& component = mScene->mRegistry.emplace<T>(mEntityHandle, std::forward<Args>(args)...);
 			mScene->OnComponentAdded<T>(*this, component);
@@ -21,18 +21,18 @@ namespace LrssnEngine {
 		}
 
 		template<typename T>
-		T& GetComponent() 		{
+		T& GetComponent() {
 			LE_CORE_ASSERT(HasComponent<T>(), "Entity does not have component!");
 			return mScene->mRegistry.get<T>(mEntityHandle);
 		}
 
 		template<typename T>
-		bool HasComponent() 		{
+		bool HasComponent() {
 			return mScene->mRegistry.has<T>(mEntityHandle);
 		}
 
 		template<typename T>
-		void RemoveComponent() 		{
+		void RemoveComponent() {
 			LE_CORE_ASSERT(HasComponent<T>(), "Entity does not have component!");
 			mScene->mRegistry.remove<T>(mEntityHandle);
 		}
@@ -41,11 +41,11 @@ namespace LrssnEngine {
 		operator entt::entity() const { return mEntityHandle; }
 		operator uint32_t() const { return (uint32_t)mEntityHandle; }
 
-		bool operator==(const Entity& other) const 		{
+		bool operator==(const Entity& other) const {
 			return mEntityHandle == other.mEntityHandle && mScene == other.mScene;
 		}
 
-		bool operator!=(const Entity& other) const 		{
+		bool operator!=(const Entity& other) const {
 			return !(*this == other);
 		}
 	private:
